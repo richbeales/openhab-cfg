@@ -1,0 +1,42 @@
+// Persistence strategies have a name and a definition and are referred to in the "Items" section
+Strategies {
+	everyMinute	: "0 * * * * ?"
+
+	// If no strategy is specified for an item entry below, the default list will be used.
+	default = everyChange, restoreOnStartup
+}
+
+/*
+ * Each line in this section defines for which item(s) which strategy(ies) should be applied.
+ * You can list single items, use "*" for all items or "groupitem*" for all members of a group
+ * item (excl. the group item itself).
+ */
+Items {
+	Weather_Chart* : strategy = everyMinute, restoreOnStartup
+	Hall_Temperature_Chart* : strategy = everyChange, everyMinute, restoreOnStartup
+	Landing_Temperature_Chart* : strategy = everyChange, everyMinute, restoreOnStartup
+	WallSwitch_Hall
+	WallSwitch_Lounge
+	WallSwitch_Kitchen
+	Toggle_Away
+	Temp_Sensor_Hall
+	Humid_Sensor_Hall
+	Lumin_Sensor_Hall
+	Motion_Sensor_Hall
+	Battery_Sensor_Hall
+	Temp_Sensor_Landing
+	Humid_Sensor_Landing
+	Lumin_Sensor_Landing
+	Motion_Sensor_Landing
+    Heating_Target_Temp
+    Battery_Sensor_Thermostat
+    Temp_Sensor_Thermostat
+    Temp_Desired_Thermostat
+    HeatCall_Thermostat
+    Contact_FrontDoor
+    Battery_FrontDoor
+    Contact_BackDoor
+    Battery_BackDoor
+    Boiler_Sensor
+    Boiler_Thermo
+}

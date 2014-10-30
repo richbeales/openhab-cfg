@@ -1,0 +1,39 @@
+import org.openhab.core.library.types.*
+import org.openhab.core.persistence.*
+import org.openhab.model.script.actions.*
+
+rule "Update Hall max and min temperatures"
+when
+	Item Temp_Sensor_Hall changed or
+	Time cron "0 0 0 * * ?" or
+	System started
+then	
+	postUpdate(Temp_Sensor_Hall_Max, Temp_Sensor_Hall.maximumSince(now.toDateMidnight).state)
+	postUpdate(Temp_Sensor_Hall_Min, Temp_Sensor_Hall.minimumSince(now.toDateMidnight).state)
+end
+
+// Creates an item that stores the last update time of this item
+rule "Records Hall last temp update time"
+when
+  Item Temp_Sensor_Hall received update
+then
+  postUpdate(Temp_Sensor_Hall_LastUpdate, new DateTimeType())
+end
+
+rule "Update Landing max and min temperatures"
+when
+	Item Temp_Sensor_Landing changed or
+	Time cron "0 0 0 * * ?" or
+	System started
+then	
+	postUpdate(Temp_Sensor_Landing_Max, Temp_Sensor_Landing.maximumSince(now.toDateMidnight).state)
+	postUpdate(Temp_Sensor_Landing_Min, Temp_Sensor_Landing.minimumSince(now.toDateMidnight).state)
+end
+
+// Creates an item that stores the last update time of this item
+rule "Records Landing last temp update time"
+when
+  Item Temp_Sensor_Landing received update
+then
+  postUpdate(Temp_Sensor_Landing_LastUpdate, new DateTimeType())
+end

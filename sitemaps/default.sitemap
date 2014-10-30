@@ -1,0 +1,82 @@
+sitemap default label="Main Menu"
+{
+	Frame {
+		Group item=gFF label="First Floor" icon="firstfloor"
+		Group item=gGF label="Ground Floor" icon="groundfloor"
+		Group item=Outdoor icon="garden" 
+	}
+	Frame label="Date" {
+		Text item=Date
+	}
+	Frame label="Weather" {
+		Text item=Weather_Temperature valuecolor=[Weather_LastUpdate=="Uninitialized"="lightgray",Weather_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] {
+			Frame {
+				Text item=Weather_Temp_Max valuecolor=[>25="orange",>15="green",>5="orange",<=5="blue"]
+				Text item=Weather_Temp_Min valuecolor=[>25="orange",>15="green",>5="orange",<=5="blue"]
+				Text item=Weather_WindSpeed valuecolor=[>25="orange",>15="green",>5="orange",<=5="blue"]
+				Text item=Weather_LastUpdate visibility=[Weather_LastUpdate>30] valuecolor=[Weather_LastUpdate>120="orange", Weather_LastUpdate>300="red"]
+			}
+			Frame {
+				Switch item=Weather_Chart_Period label="Chart Period" mappings=[0="Hour", 1="Day", 2="Week"]
+				Chart item=Weather_Chart period=h refresh=600 visibility=[Weather_Chart_Period==0, Weather_Chart_Period=="Uninitialized"]
+				Chart item=Weather_Chart period=D refresh=3600 visibility=[Weather_Chart_Period==1]
+				Chart item=Weather_Chart period=W refresh=3600 visibility=[Weather_Chart_Period==2]
+			}
+		}
+	}
+	Frame label="Inside Temperature" {
+		Text item=Temp_Sensor_Hall valuecolor=[Temp_Sensor_Hall_LastUpdate=="Uninitialized"="lightgray",Temp_Sensor_Hall_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] {
+			Frame {
+				Text item=Temp_Sensor_Hall_Max valuecolor=[>25="orange",>15="green",>5="orange",<=5="blue"]
+				Text item=Temp_Sensor_Hall_Min valuecolor=[>25="orange",>15="green",>5="orange",<=5="blue"]
+				Text item=Temp_Sensor_Hall_LastUpdate visibility=[Temp_Sensor_Hall_LastUpdate>30] valuecolor=[Temp_Sensor_Hall_LastUpdate>120="orange", Temp_Sensor_Hall_LastUpdate>300="red"]
+			}
+			Frame {
+				Switch item=Temp_Sensor_Hall_Chart_Period label="Chart Period" mappings=[0="Hour", 1="Day", 2="Week"]
+				Chart item=Hall_Temperature_Chart period=h refresh=600 visibility=[Temp_Sensor_Hall_Chart_Period==0, Temp_Sensor_Hall_Chart_Period=="Uninitialized"]
+				Chart item=Hall_Temperature_Chart period=D refresh=3600 visibility=[Temp_Sensor_Hall_Chart_Period==1]
+				Chart item=Hall_Temperature_Chart period=W refresh=3600 visibility=[Temp_Sensor_Hall_Chart_Period==2]
+			}
+		}
+		Text item=Temp_Sensor_Landing valuecolor=[Temp_Sensor_Landing_LastUpdate=="Uninitialized"="lightgray",Temp_Sensor_Landing_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] {
+			Frame {
+				Text item=Temp_Sensor_Landing_Max valuecolor=[>25="orange",>15="green",>5="orange",<=5="blue"]
+				Text item=Temp_Sensor_Landing_Min valuecolor=[>25="orange",>15="green",>5="orange",<=5="blue"]
+				Text item=Temp_Sensor_Landing_LastUpdate visibility=[Temp_Sensor_Landing_LastUpdate>30] valuecolor=[Temp_Sensor_Landing_LastUpdate>120="orange", Temp_Sensor_Landing_LastUpdate>300="red"]
+			}
+			Frame {
+				Switch item=Temp_Sensor_Landing_Chart_Period label="Chart Period" mappings=[0="Hour", 1="Day", 2="Week"]
+				Chart item=Landing_Temperature_Chart period=h refresh=600 visibility=[Temp_Sensor_Landing_Chart_Period==0, Temp_Sensor_Landing_Chart_Period=="Uninitialized"]
+				Chart item=Landing_Temperature_Chart period=D refresh=3600 visibility=[Temp_Sensor_Landing_Chart_Period==1]
+				Chart item=Landing_Temperature_Chart period=W refresh=3600 visibility=[Temp_Sensor_Landing_Chart_Period==2]
+			}
+		}
+	}
+	Frame label="Statistics" {
+		Switch item=WallSwitch_Hall
+		Switch item=WallSwitch_Lounge
+		Switch item=WallSwitch_Kitchen
+		Switch item=Toggle_Away
+		Text item=Temp_Sensor_Hall
+		Text item=Humid_Sensor_Hall
+		Text item=Lumin_Sensor_Hall
+		Text item=Motion_Sensor_Hall
+		Text item=Battery_Sensor_Hall
+		Text item=Temp_Sensor_Landing
+		Text item=Humid_Sensor_Landing
+		Text item=Lumin_Sensor_Landing
+		Text item=Motion_Sensor_Landing
+        Text item=Heating_Target_Temp
+        Text item=Battery_Sensor_Thermostat
+        Text item=Temp_Sensor_Thermostat
+        Setpoint item=Temp_Desired_Thermostat
+        Text item=Contact_FrontDoor
+        Text item=Battery_FrontDoor
+        Text item=Contact_BackDoor
+        Text item=Battery_BackDoor
+        Switch item=Boiler_Sensor
+        Switch item=HeatCall_Thermostat
+        Text item=Boiler_Thermo
+        Switch item=MainPC_Wake
+	}
+}
