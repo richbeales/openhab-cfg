@@ -12,13 +12,6 @@ then
 	postUpdate(Temp_Sensor_Hall_Min, Temp_Sensor_Hall.minimumSince(now.toDateMidnight).state)
 end
 
-// Creates an item that stores the last update time of this item
-rule "Records Hall last temp update time"
-when
-  Item Temp_Sensor_Hall received update
-then
-  postUpdate(Temp_Sensor_Hall_LastUpdate, new DateTimeType())
-end
 
 rule "Update Landing max and min temperatures"
 when
@@ -30,10 +23,171 @@ then
 	postUpdate(Temp_Sensor_Landing_Min, Temp_Sensor_Landing.minimumSince(now.toDateMidnight).state)
 end
 
-// Creates an item that stores the last update time of this item
-rule "Records Landing last temp update time"
+rule "Switch off WOL"
+when
+    Item MainPC_Wake changed from OFF to ON
+then
+    postUpdate(MainPC_Wake, OFF)
+end
+
+rule "Record Hall last temp update time"
+when
+  Item Temp_Sensor_Hall received update
+then
+  postUpdate(Temp_Sensor_Hall_LastUpdate, new DateTimeType())
+end
+
+rule "Record Landing last temp update time"
 when
   Item Temp_Sensor_Landing received update
 then
   postUpdate(Temp_Sensor_Landing_LastUpdate, new DateTimeType())
 end
+
+rule "Record WallSwitch_Hall_LastUpdate"
+when
+  Item WallSwitch_Hall received update
+then
+  postUpdate(WallSwitch_Hall_LastUpdate, new DateTimeType())
+end
+
+rule "Record WallSwitch_Lounge_LastUpdate"
+when
+  Item WallSwitch_Lounge received update
+then
+  postUpdate(WallSwitch_Lounge_LastUpdate, new DateTimeType())
+end
+
+rule "Record WallSwitch_Kitchen_LastUpdate"
+when
+  Item WallSwitch_Kitchen received update
+then
+  postUpdate(WallSwitch_Kitchen_LastUpdate, new DateTimeType())
+end
+
+rule "Record Temp_Desired_Thermostat_LastUpdate"
+when
+  Item Temp_Desired_Thermostat received update
+then
+  postUpdate(Temp_Desired_Thermostat_LastUpdate, new DateTimeType())
+end
+
+rule "Record HeatCall_Thermostat_LastUpdate"
+when
+  Item HeatCall_Thermostat received update
+then
+  postUpdate(HeatCall_Thermostat_LastUpdate, new DateTimeType())
+end
+
+rule "Record Boiler_Sensor_LastUpdate"
+when
+  Item Boiler_Sensor received update
+then
+  postUpdate(Boiler_Sensor_LastUpdate, new DateTimeType())
+end
+
+rule "Record Humid_Sensor_Hall_LastUpdate"
+when
+  Item Humid_Sensor_Hall received update
+then
+  postUpdate(Humid_Sensor_Hall_LastUpdate, new DateTimeType())
+end
+
+rule "Record Lumin_Sensor_Hall_LastUpdate"
+when
+  Item Lumin_Sensor_Hall received update
+then
+  postUpdate(Lumin_Sensor_Hall_LastUpdate, new DateTimeType())
+end
+
+rule "Record Motion_Sensor_Hall_LastUpdate"
+when
+  Item Motion_Sensor_Hall received update
+then
+  postUpdate(Motion_Sensor_Hall_LastUpdate, new DateTimeType())
+end
+
+rule "Record Humid_Sensor_Landing_LastUpdate"
+  when
+Item Humid_Sensor_Landing received update
+then
+  postUpdate(Humid_Sensor_Landing_LastUpdate, new DateTimeType())
+end
+
+rule "Record Lumin_Sensor_Landing_LastUpdate"
+when
+  Item Lumin_Sensor_Landing received update
+then
+  postUpdate(Lumin_Sensor_Landing_LastUpdate, new DateTimeType())
+end
+
+rule "Record Motion_Sensor_Landing_LastUpdate"
+when
+  Item Motion_Sensor_Landing received update
+then
+  postUpdate(Motion_Sensor_Landing_LastUpdate, new DateTimeType())
+end
+
+rule "Record Contact_FrontDoor_LastUpdate"
+when
+  Item Contact_FrontDoor received update
+then
+  postUpdate(Contact_FrontDoor_LastUpdate, new DateTimeType())
+end
+
+rule "Record Contact_BackDoor_LastUpdate"
+when
+  Item Contact_BackDoor received update
+then
+  postUpdate(Contact_BackDoor_LastUpdate, new DateTimeType())
+end
+
+rule "Record Temp_Sensor_Thermostat_LastUpdate"
+when
+  Item Temp_Sensor_Thermostat received update
+then
+  postUpdate(Temp_Sensor_Thermostat_LastUpdate, new DateTimeType())
+end
+
+rule "Record Auto_Away_LastUpdate"
+when
+  Item Auto_Away received update
+then
+  postUpdate(Auto_Away_LastUpdate, new DateTimeType())
+end
+
+rule "Record Battery_Sensor_Hall_LastUpdate"
+when
+  Item Battery_Sensor_Hall received update
+then
+  postUpdate(Battery_Sensor_Hall_LastUpdate, new DateTimeType())
+end
+
+rule "Record Battery_FrontDoor_LastUpdate"
+when
+  Item Battery_FrontDoor received update
+then
+  postUpdate(Battery_FrontDoor_LastUpdate, new DateTimeType())
+end
+
+rule "Record Battery_BackDoor_LastUpdate"
+when
+  Item Battery_BackDoor received update
+then
+  postUpdate(Battery_BackDoor_LastUpdate, new DateTimeType())
+end
+
+rule "Record Battery_Sensor_Thermostat_LastUpdate"
+when
+  Item Battery_Sensor_Thermostat received update
+then
+  postUpdate(Battery_Sensor_Thermostat_LastUpdate, new DateTimeType())
+end
+
+rule "Record Boiler_Thermo_LastUpdate"
+when
+  Item Boiler_Thermo received update
+then
+  postUpdate(Boiler_Thermo_LastUpdate, new DateTimeType())
+end
+

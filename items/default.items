@@ -49,8 +49,8 @@ Contact	Motion_Sensor_Landing	"Landing Sensor [MAP(motion.map):%s]"	(FF_Hall)		{
 
 /* TKB Home Wall switches */
 Switch	WallSwitch_Hall	"Hallway Wall switch"	(GF_Hall)		{ zwave="3:0" }
-Switch	WallSwitch_Lounge	"Lounge Wall switch"	(GF_Lounge)		{ zwave="36:0" }
 Switch	WallSwitch_Kitchen	"Kitchen Wall switch"	(GF_Kitchen)		{ zwave="35:0" }
+Switch	WallSwitch_Lounge	"Lounge Wall switch"	(GF_Lounge)		{ zwave="36:0" }
 
 /* Vision Security Door/Window Sensors on Doors */
 Contact	Contact_BackDoor	"Back Door [MAP(motion.map):%s]"	<frontdoor> (GF_Kitchen)		{ zwave="5:0:command=basic,respond_to_basic=true" }
@@ -72,13 +72,36 @@ Number	Boiler_Thermo	"Boiler Status [MAP(heat.map):%d]"	<fire>	(GF_Hall)		{ zwav
 Switch  MainPC_Wake     "Main Computer Wake" <computer> (FF_Study) {wol="192.168.1.0#74:d4:35:54:85:89"}
 
 /* Virtual Items */
-Switch	Toggle_Away	"Away?"	(All)	
-Number	Heating_Target_Temp	"Heating target temp [%.1f C]"	<temperature>	(All)	
+Switch	Auto_Away	"Auto Away?"	(All)	
+Switch	Manual_Away	"Manual Away?"	(All)	
+Switch	Heating_Boost	"Heating 1hr Boost"	<temperature>	(All)	
 Number	Temp_Sensor_Hall_Min	"Today's minimum [%.1f C]"	<temperature>	(GF_Hall,Hall_Temperature_Chart)	
 Number	Temp_Sensor_Hall_Max	"Today's maximum [%.1f C]"	<temperature>	(GF_Hall,Hall_Temperature_Chart)	
-Number	Temp_Sensor_Hall_Chart_Period	"Chart Period"
-DateTime	Temp_Sensor_Hall_LastUpdate	"Last Update [%1$ta %1$tR]"	<clock>
+Number	Temp_Sensor_Hall_Chart_Period	"Hall Temp Chart Period"
 Number	Temp_Sensor_Landing_Min	"Today's minimum [%.1f C]"	<temperature>	(FF_Hall,Landing_Temperature_Chart)	
 Number	Temp_Sensor_Landing_Max	"Today's maximum [%.1f C]"	<temperature>	(FF_Hall,Landing_Temperature_Chart)	
-Number	Temp_Sensor_Landing_Chart_Period	"Chart Period"
-DateTime	Temp_Sensor_Landing_LastUpdate	"Last Update [%1$ta %1$tR]"	<clock>
+Number	Temp_Sensor_Landing_Chart_Period	"Landing Temp Chart Period"
+
+DateTime Temp_Sensor_Landing_LastUpdate	"Landing Temp Updated [%1$ta %1$tR]"	<clock>
+DateTime Temp_Sensor_Hall_LastUpdate	"Hall Temp Updated [%1$ta %1$tR]"	<clock>
+DateTime WallSwitch_Hall_LastUpdate
+DateTime WallSwitch_Lounge_LastUpdate
+DateTime WallSwitch_Kitchen_LastUpdate
+DateTime Temp_Desired_Thermostat_LastUpdate
+DateTime HeatCall_Thermostat_LastUpdate
+DateTime Boiler_Sensor_LastUpdate
+DateTime Humid_Sensor_Hall_LastUpdate
+DateTime Lumin_Sensor_Hall_LastUpdate
+DateTime Motion_Sensor_Hall_LastUpdate
+DateTime Humid_Sensor_Landing_LastUpdate
+DateTime Lumin_Sensor_Landing_LastUpdate
+DateTime Motion_Sensor_Landing_LastUpdate
+DateTime Contact_FrontDoor_LastUpdate
+DateTime Contact_BackDoor_LastUpdate
+DateTime Temp_Sensor_Thermostat_LastUpdate
+DateTime Auto_Away_LastUpdate
+DateTime Battery_Sensor_Hall_LastUpdate
+DateTime Battery_FrontDoor_LastUpdate
+DateTime Battery_BackDoor_LastUpdate
+DateTime Battery_Sensor_Thermostat_LastUpdate
+DateTime Boiler_Thermo_LastUpdate

@@ -18,7 +18,8 @@ Items {
 	WallSwitch_Hall
 	WallSwitch_Lounge
 	WallSwitch_Kitchen
-	Toggle_Away
+	Auto_Away
+	Manual_Away
 	Temp_Sensor_Hall
 	Humid_Sensor_Hall
 	Lumin_Sensor_Hall
@@ -33,6 +34,7 @@ Items {
     Temp_Sensor_Thermostat
     Temp_Desired_Thermostat
     HeatCall_Thermostat
+    Heating_Boost
     Contact_FrontDoor
     Battery_FrontDoor
     Contact_BackDoor

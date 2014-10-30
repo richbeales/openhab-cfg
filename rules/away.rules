@@ -2,7 +2,6 @@ import org.openhab.core.library.types.*
 import org.openhab.core.persistence.*
 import org.openhab.model.script.actions.*
  
- 
 var Timer timer
  
 rule "motionSwitchOn"
@@ -10,22 +9,22 @@ when
         Item Motion_Sensor_Hall changed from CLOSED to OPEN or
         Item Motion_Sensor_Landing changed from CLOSED to OPEN
 then
-		#if (Toggle_Away.state == 0)
-		#{
-        	postUpdate(Toggle_Away, OFF)
-		#}
+		if (Auto_Away.state == ON)
+		{
+        	postUpdate(Auto_Away, OFF)
+		}
         if(timer!=null) {
             timer.cancel
             timer = null
         }
 end
- 
-rule "motionSwitchOff"
+
+rule "doorsOpened"
 when
-        Item Motion_Sensor_Hall changed from OPEN to CLOSED or
-        Item Motion_Sensor_Landing changed from OPEN to CLOSED
+        Item Contact_FrontDoor changed from CLOSED to OPEN or
+        Item Contact_BackDoor changed from CLOSED to OPEN
 then
-        timer = createTimer(now.plusSeconds(3600)) [|
-            postUpdate(Toggle_Away, ON)
+        timer = createTimer(now.plusSeconds(600)) [|
+            postUpdate(Auto_Away, ON)
         ]
 end

@@ -5,16 +5,13 @@ sitemap default label="Main Menu"
 		Group item=gGF label="Ground Floor" icon="groundfloor"
 		Group item=Outdoor icon="garden" 
 	}
-	Frame label="Date" {
-		Text item=Date
-	}
 	Frame label="Weather" {
-		Text item=Weather_Temperature valuecolor=[Weather_LastUpdate=="Uninitialized"="lightgray",Weather_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] {
+		Text item=Weather_Temperature labelcolor=[Weather_LastUpdate=="Uninitialized"="lightgray",Weather_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] {
 			Frame {
-				Text item=Weather_Temp_Max valuecolor=[>25="orange",>15="green",>5="orange",<=5="blue"]
-				Text item=Weather_Temp_Min valuecolor=[>25="orange",>15="green",>5="orange",<=5="blue"]
-				Text item=Weather_WindSpeed valuecolor=[>25="orange",>15="green",>5="orange",<=5="blue"]
-				Text item=Weather_LastUpdate visibility=[Weather_LastUpdate>30] valuecolor=[Weather_LastUpdate>120="orange", Weather_LastUpdate>300="red"]
+				Text item=Weather_Temp_Max labelcolor=[>25="orange",>15="green",>5="orange",<=5="blue"]
+				Text item=Weather_Temp_Min labelcolor=[>25="orange",>15="green",>5="orange",<=5="blue"]
+				Text item=Weather_WindSpeed labelcolor=[>25="orange",>15="green",>5="orange",<=5="blue"]
+				Text item=Weather_LastUpdate visibility=[Weather_LastUpdate>30] labelcolor=[Weather_LastUpdate>120="orange", Weather_LastUpdate>300="red"]
 			}
 			Frame {
 				Switch item=Weather_Chart_Period label="Chart Period" mappings=[0="Hour", 1="Day", 2="Week"]
@@ -25,11 +22,11 @@ sitemap default label="Main Menu"
 		}
 	}
 	Frame label="Inside Temperature" {
-		Text item=Temp_Sensor_Hall valuecolor=[Temp_Sensor_Hall_LastUpdate=="Uninitialized"="lightgray",Temp_Sensor_Hall_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] {
+		Text item=Temp_Sensor_Hall labelcolor=[Temp_Sensor_Hall_LastUpdate=="Uninitialized"="lightgray",Temp_Sensor_Hall_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] {
 			Frame {
-				Text item=Temp_Sensor_Hall_Max valuecolor=[>25="orange",>15="green",>5="orange",<=5="blue"]
-				Text item=Temp_Sensor_Hall_Min valuecolor=[>25="orange",>15="green",>5="orange",<=5="blue"]
-				Text item=Temp_Sensor_Hall_LastUpdate visibility=[Temp_Sensor_Hall_LastUpdate>30] valuecolor=[Temp_Sensor_Hall_LastUpdate>120="orange", Temp_Sensor_Hall_LastUpdate>300="red"]
+				Text item=Temp_Sensor_Hall_Max labelcolor=[>25="orange",>15="green",>5="orange",<=5="blue"]
+				Text item=Temp_Sensor_Hall_Min labelcolor=[>25="orange",>15="green",>5="orange",<=5="blue"]
+				Text item=Temp_Sensor_Hall_LastUpdate visibility=[Temp_Sensor_Hall_LastUpdate>30] labelcolor=[Temp_Sensor_Hall_LastUpdate>120="orange", Temp_Sensor_Hall_LastUpdate>300="red"]
 			}
 			Frame {
 				Switch item=Temp_Sensor_Hall_Chart_Period label="Chart Period" mappings=[0="Hour", 1="Day", 2="Week"]
@@ -38,11 +35,11 @@ sitemap default label="Main Menu"
 				Chart item=Hall_Temperature_Chart period=W refresh=3600 visibility=[Temp_Sensor_Hall_Chart_Period==2]
 			}
 		}
-		Text item=Temp_Sensor_Landing valuecolor=[Temp_Sensor_Landing_LastUpdate=="Uninitialized"="lightgray",Temp_Sensor_Landing_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] {
+		Text item=Temp_Sensor_Landing labelcolor=[Temp_Sensor_Landing_LastUpdate=="Uninitialized"="lightgray",Temp_Sensor_Landing_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] {
 			Frame {
-				Text item=Temp_Sensor_Landing_Max valuecolor=[>25="orange",>15="green",>5="orange",<=5="blue"]
-				Text item=Temp_Sensor_Landing_Min valuecolor=[>25="orange",>15="green",>5="orange",<=5="blue"]
-				Text item=Temp_Sensor_Landing_LastUpdate visibility=[Temp_Sensor_Landing_LastUpdate>30] valuecolor=[Temp_Sensor_Landing_LastUpdate>120="orange", Temp_Sensor_Landing_LastUpdate>300="red"]
+				Text item=Temp_Sensor_Landing_Max labelcolor=[>25="orange",>15="green",>5="orange",<=5="blue"]
+				Text item=Temp_Sensor_Landing_Min labelcolor=[>25="orange",>15="green",>5="orange",<=5="blue"]
+				Text item=Temp_Sensor_Landing_LastUpdate visibility=[Temp_Sensor_Landing_LastUpdate>30] labelcolor=[Temp_Sensor_Landing_LastUpdate>120="orange", Temp_Sensor_Landing_LastUpdate>300="red"]
 			}
 			Frame {
 				Switch item=Temp_Sensor_Landing_Chart_Period label="Chart Period" mappings=[0="Hour", 1="Day", 2="Week"]
@@ -52,31 +49,44 @@ sitemap default label="Main Menu"
 			}
 		}
 	}
+	Frame label="Network Time" {
+		Text item=Date
+	}
+    Frame label="Switches" {
+		Switch item=WallSwitch_Hall labelcolor=[WallSwitch_Hall_LastUpdate=="Uninitialized"="lightgray",WallSwitch_Hall_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] 
+		Switch item=WallSwitch_Lounge labelcolor=[WallSwitch_Lounge_LastUpdate=="Uninitialized"="lightgray",WallSwitch_Lounge_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] 
+		Switch item=WallSwitch_Kitchen labelcolor=[WallSwitch_Kitchen_LastUpdate=="Uninitialized"="lightgray",WallSwitch_Kitchen_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] 
+        Switch item=MainPC_Wake 
+        Switch item=Manual_Away
+
+        Setpoint item=Temp_Desired_Thermostat labelcolor=[Temp_Desired_Thermostat_LastUpdate=="Uninitialized"="lightgray",Temp_Desired_Thermostat_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] 
+        Switch item=HeatCall_Thermostat labelcolor=[HeatCall_Thermostat_LastUpdate=="Uninitialized"="lightgray",HeatCall_Thermostat_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] 
+        Switch item=Heating_Boost 
+        Switch item=Boiler_Sensor labelcolor=[Boiler_Sensor_LastUpdate=="Uninitialized"="lightgray",Boiler_Sensor_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] 
+    }
+    Frame label="Sensors" {
+        Text item=Temp_Sensor_Hall labelcolor=[Temp_Sensor_Hall_LastUpdate=="Uninitialized"="lightgray",Temp_Sensor_Hall_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] 
+		Text item=Humid_Sensor_Hall labelcolor=[Humid_Sensor_Hall_LastUpdate=="Uninitialized"="lightgray",Humid_Sensor_Hall_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] 
+		Text item=Lumin_Sensor_Hall labelcolor=[Lumin_Sensor_Hall_LastUpdate=="Uninitialized"="lightgray",Lumin_Sensor_Hall_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] 
+		Text item=Motion_Sensor_Hall labelcolor=[Motion_Sensor_Hall_LastUpdate=="Uninitialized"="lightgray",Motion_Sensor_Hall_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] 
+
+        Text item=Temp_Sensor_Landing labelcolor=[Temp_Sensor_Landing_LastUpdate=="Uninitialized"="lightgray",Temp_Sensor_Landing_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] 
+		Text item=Humid_Sensor_Landing labelcolor=[Humid_Sensor_Landing_LastUpdate=="Uninitialized"="lightgray",Humid_Sensor_Landing_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] 
+		Text item=Lumin_Sensor_Landing labelcolor=[Lumin_Sensor_Landing_LastUpdate=="Uninitialized"="lightgray",Lumin_Sensor_Landing_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] 
+		Text item=Motion_Sensor_Landing labelcolor=[Motion_Sensor_Landing_LastUpdate=="Uninitialized"="lightgray",Motion_Sensor_Landing_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] 
+
+        Text item=Contact_FrontDoor labelcolor=[Contact_FrontDoor_LastUpdate=="Uninitialized"="lightgray",Contact_FrontDoor_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] 
+        Text item=Contact_BackDoor labelcolor=[Contact_BackDoor_LastUpdate=="Uninitialized"="lightgray",Contact_BackDoor_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] 
+        Text item=Temp_Sensor_Thermostat labelcolor=[Temp_Sensor_Thermostat_LastUpdate=="Uninitialized"="lightgray",Temp_Sensor_Thermostat_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] 
+    }
 	Frame label="Statistics" {
-		Switch item=WallSwitch_Hall
-		Switch item=WallSwitch_Lounge
-		Switch item=WallSwitch_Kitchen
-		Switch item=Toggle_Away
-		Text item=Temp_Sensor_Hall
-		Text item=Humid_Sensor_Hall
-		Text item=Lumin_Sensor_Hall
-		Text item=Motion_Sensor_Hall
-		Text item=Battery_Sensor_Hall
-		Text item=Temp_Sensor_Landing
-		Text item=Humid_Sensor_Landing
-		Text item=Lumin_Sensor_Landing
-		Text item=Motion_Sensor_Landing
-        Text item=Heating_Target_Temp
-        Text item=Battery_Sensor_Thermostat
-        Text item=Temp_Sensor_Thermostat
-        Setpoint item=Temp_Desired_Thermostat
-        Text item=Contact_FrontDoor
-        Text item=Battery_FrontDoor
-        Text item=Contact_BackDoor
-        Text item=Battery_BackDoor
-        Switch item=Boiler_Sensor
-        Switch item=HeatCall_Thermostat
-        Text item=Boiler_Thermo
-        Switch item=MainPC_Wake
+		Text item=Auto_Away labelcolor=[Auto_Away_LastUpdate=="Uninitialized"="lightgray",Auto_Away_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] 
+		
+		Text item=Battery_Sensor_Hall labelcolor=[Battery_Sensor_Hall_LastUpdate=="Uninitialized"="lightgray",Battery_Sensor_Hall_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] 
+        Text item=Battery_FrontDoor labelcolor=[Battery_FrontDoor_LastUpdate=="Uninitialized"="lightgray",Battery_FrontDoor_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] 
+        Text item=Battery_BackDoor labelcolor=[Battery_BackDoor_LastUpdate=="Uninitialized"="lightgray",Battery_BackDoor_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] 
+        Text item=Battery_Sensor_Thermostat labelcolor=[Battery_Sensor_Thermostat_LastUpdate=="Uninitialized"="lightgray",Battery_Sensor_Thermostat_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] 
+        Text item=Boiler_Thermo labelcolor=[Boiler_Thermo_LastUpdate=="Uninitialized"="lightgray",Boiler_Thermo_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] 
+
 	}
 }
