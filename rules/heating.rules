@@ -5,14 +5,16 @@ import org.openhab.model.script.actions.*
 var Number defaultTemp = 21
 var Number minTemp = 9
 var Number nightTemp = 15
+var Number previousTemp
 
 rule "heatingOnWeekdayMornings"
 when
         Time cron "0 30 6 ? * MON-FRI"
 then
-        if (Auto_Away.state == OFF && Manual_Away.state == OFF) {
+        if (Auto_Away.state != ON && Manual_Away.state != ON) {
             postUpdate(Temp_Desired_Thermostat, defaultTemp)
         }
+        postUpdate(Heating_Boost, OFF)
 end
 
 rule "heatingOffWeekdayMornings"
@@ -20,33 +22,43 @@ when
         Time cron "0 0 8 ? * MON-FRI"
 then
         postUpdate(Temp_Desired_Thermostat, minTemp)
+        postUpdate(Heating_Boost, OFF)
 end
 
 rule "heatingOnWeekdayEvenings"
 when
         Time cron "0 30 16 ? * MON-FRI"
 then
-        if (Auto_Away.state == OFF && Manual_Away.state == OFF) {
+        if (Auto_Away.state != ON && Manual_Away.state != ON) {
+            logInfo("heating.rules", "weekday evening - turn heating up")
             postUpdate(Temp_Desired_Thermostat, defaultTemp)
         }
+        else {
+            logInfo("heating.rules", "weekday evening - heating not turned up - away")
+            logInfo("heating.rules", "weekday evening - auto away = " + Auto_Away.state)
+            logInfo("heating.rules", "weekday evening - manual away = " + Manual_Away.state)
+        }
+        postUpdate(Heating_Boost, OFF)
 end
 
 rule "heatingOffWeekdayEvenings"
 when
         Time cron "0 0 22 ? * MON-FRI"
 then
-        if (Auto_Away.state == OFF && Manual_Away.state == OFF) {
+        if (Auto_Away.state != ON && Manual_Away.state != ON) {
             postUpdate(Temp_Desired_Thermostat, nightTemp)
         }
+        postUpdate(Heating_Boost, OFF)
 end
 
 rule "heatingOnWeekendMornings"
 when
         Time cron "0 30 8 ? * SAT-SUN"
 then
-        if (Auto_Away.state == OFF && Manual_Away.state == OFF) {
+        if (Auto_Away.state != ON && Manual_Away.state != ON) {
             postUpdate(Temp_Desired_Thermostat, defaultTemp)
         }
+        postUpdate(Heating_Boost, OFF)
 end
 
 rule "heatingOffWeekendMornings"
@@ -54,24 +66,27 @@ when
         Time cron "0 30 10 ? * SAT-SUN"
 then
         postUpdate(Temp_Desired_Thermostat, minTemp)
+        postUpdate(Heating_Boost, OFF)
 end
 
 rule "heatingOnWeekendEvenings"
 when
         Time cron "0 30 16 ? * SAT-SUN"
 then
-        if (Auto_Away.state == OFF && Manual_Away.state == OFF) {
+        if (Auto_Away.state != ON && Manual_Away.state != ON) {
             postUpdate(Temp_Desired_Thermostat, defaultTemp)
         }
+        postUpdate(Heating_Boost, OFF)
 end
 
 rule "heatingOffWeekendEvenings"
 when
         Time cron "0 30 22 ? * SAT-SUN"
 then
-        if (Auto_Away.state == OFF && Manual_Away.state == OFF) {
+        if (Auto_Away.state != ON && Manual_Away.state != ON) {
             postUpdate(Temp_Desired_Thermostat, nightTemp)
         }
+        postUpdate(Heating_Boost, OFF)
 end
 
 rule "heatingOffWhenAway"
@@ -79,13 +94,16 @@ when
         Item Auto_Away changed from OFF to ON OR
         Item Manual_Away changed from OFF to ON
 then
+        previousTemp = Temp_Desired_Thermostat.state
         postUpdate(Temp_Desired_Thermostat, minTemp)
+        postUpdate(Heating_Boost, OFF)
 end
 
 rule "heatingBoost"
 when 
         Item Heating_Boost changed from OFF to ON
 then
+        previousTemp = Temp_Desired_Thermostat.state
+        logInfo("heating.rules", "heating boost triggered - was set to " + previousTemp)
         postUpdate(Temp_Desired_Thermostat, defaultTemp)
-        postUpdate(Heating_Boost, OFF)
 end

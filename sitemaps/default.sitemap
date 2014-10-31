@@ -48,6 +48,7 @@ sitemap default label="Main Menu"
 				Chart item=Landing_Temperature_Chart period=W refresh=3600 visibility=[Temp_Sensor_Landing_Chart_Period==2]
 			}
 		}
+        Text item=Temp_Sensor_Thermostat labelcolor=[Temp_Sensor_Thermostat_LastUpdate=="Uninitialized"="lightgray",Temp_Sensor_Thermostat_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] 
 	}
 	Frame label="Network Time" {
 		Text item=Date
@@ -60,7 +61,6 @@ sitemap default label="Main Menu"
         Switch item=Manual_Away
 
         Setpoint item=Temp_Desired_Thermostat labelcolor=[Temp_Desired_Thermostat_LastUpdate=="Uninitialized"="lightgray",Temp_Desired_Thermostat_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] 
-        Switch item=HeatCall_Thermostat labelcolor=[HeatCall_Thermostat_LastUpdate=="Uninitialized"="lightgray",HeatCall_Thermostat_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] 
         Switch item=Heating_Boost 
         Switch item=Boiler_Sensor labelcolor=[Boiler_Sensor_LastUpdate=="Uninitialized"="lightgray",Boiler_Sensor_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] 
     }
@@ -87,6 +87,7 @@ sitemap default label="Main Menu"
         Text item=Battery_BackDoor labelcolor=[Battery_BackDoor_LastUpdate=="Uninitialized"="lightgray",Battery_BackDoor_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] 
         Text item=Battery_Sensor_Thermostat labelcolor=[Battery_Sensor_Thermostat_LastUpdate=="Uninitialized"="lightgray",Battery_Sensor_Thermostat_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] 
         Text item=Boiler_Thermo labelcolor=[Boiler_Thermo_LastUpdate=="Uninitialized"="lightgray",Boiler_Thermo_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] 
+        Text item=HeatCall_Thermostat labelcolor=[HeatCall_Thermostat_LastUpdate=="Uninitialized"="lightgray",HeatCall_Thermostat_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] 
 
 	}
 }

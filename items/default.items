@@ -36,15 +36,15 @@ DateTime	Date	"Date [%1$tA, %1$td.%1$tm.%1$tY %1$tT]"	<calendar>	{ ntp="Europe/L
 
 /* Hallway Aeon Labs Multisensor - Battery Powered - set Configuration item 101 to 225 (send all values) and 111 to 3600 (hourly) using Habmin */
 Number	Temp_Sensor_Hall	"Hallway temperature: [%.1f C]"	<temperature> (GF_Hall,Hall_Temperature_Chart)		{ zwave="34:0:command=sensor_multilevel,sensor_type=1" }
-Number	Humid_Sensor_Hall	"Relative humidity: [%.0f %%]"	<water>	(GF_Hall) { zwave="34:0:command=sensor_multilevel,sensor_type=5" }
-Number	Lumin_Sensor_Hall	"Luminance: [%.0f Lux]"	<sun>	(GF_Hall)		{ zwave="34:0:command=sensor_multilevel,sensor_type=3" }
+Number	Humid_Sensor_Hall	"Hall Relative humidity: [%.0f %%]"	<water>	(GF_Hall) { zwave="34:0:command=sensor_multilevel,sensor_type=5" }
+Number	Lumin_Sensor_Hall	"Hall Luminance: [%.0f Lux]"	<sun>	(GF_Hall)		{ zwave="34:0:command=sensor_multilevel,sensor_type=3" }
 Number	Battery_Sensor_Hall	"Hall Sensor Battery: [%d %%]"	<battery> (GF_Hall)		{ zwave="34:command=battery" }
 Contact	Motion_Sensor_Hall	"Hall Sensor [MAP(motion.map):%s]"	(GF_Hall) { zwave="34:0:command=sensor_binary,respond_to_basic=true" }
 
 /* Landing Aeon Labs Multisensor - USB Powered */
 Number	Temp_Sensor_Landing	"Landing temperature: [%.1f C]"	<temperature>	(FF_Hall,Landing_Temperature_Chart)		{ zwave="2:0:command=sensor_multilevel,sensor_type=1" }
-Number	Humid_Sensor_Landing	"Relative humidity: [%.0f %%]"	<water>	(FF_Hall)		{ zwave="2:0:command=sensor_multilevel,sensor_type=5" }
-Number	Lumin_Sensor_Landing	"Luminance: [%.0f Lux]"	<sun>	(FF_Hall)		{ zwave="2:0:command=sensor_multilevel,sensor_type=3" }
+Number	Humid_Sensor_Landing	"Landing Relative humidity: [%.0f %%]"	<water>	(FF_Hall)		{ zwave="2:0:command=sensor_multilevel,sensor_type=5" }
+Number	Lumin_Sensor_Landing	"Landing Luminance: [%.0f Lux]"	<sun>	(FF_Hall)		{ zwave="2:0:command=sensor_multilevel,sensor_type=3" }
 Contact	Motion_Sensor_Landing	"Landing Sensor [MAP(motion.map):%s]"	(FF_Hall)		{ zwave="2:0:command=sensor_binary,respond_to_basic=true" }
 
 /* TKB Home Wall switches */
@@ -74,7 +74,7 @@ Switch  MainPC_Wake     "Main Computer Wake" <computer> (FF_Study) {wol="192.168
 /* Virtual Items */
 Switch	Auto_Away	"Auto Away?"	(All)	
 Switch	Manual_Away	"Manual Away?"	(All)	
-Switch	Heating_Boost	"Heating 1hr Boost"	<temperature>	(All)	
+Switch	Heating_Boost	"Heating Boost"	<temperature>	(All)	
 Number	Temp_Sensor_Hall_Min	"Today's minimum [%.1f C]"	<temperature>	(GF_Hall,Hall_Temperature_Chart)	
 Number	Temp_Sensor_Hall_Max	"Today's maximum [%.1f C]"	<temperature>	(GF_Hall,Hall_Temperature_Chart)	
 Number	Temp_Sensor_Hall_Chart_Period	"Hall Temp Chart Period"
