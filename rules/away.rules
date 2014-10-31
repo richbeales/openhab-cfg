@@ -9,7 +9,7 @@ when
         Item Motion_Sensor_Hall changed from CLOSED to OPEN or
         Item Motion_Sensor_Landing changed from CLOSED to OPEN
 then
-		if (Auto_Away.state != ON)
+		if (Auto_Away.state == ON)
 		{
         	postUpdate(Auto_Away, OFF)
 		}

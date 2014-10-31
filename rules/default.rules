@@ -2,6 +2,14 @@ import org.openhab.core.library.types.*
 import org.openhab.core.persistence.*
 import org.openhab.model.script.actions.*
 
+rule "Start up"
+when
+    System started
+then
+    postUpdate(Auto_Away, OFF)
+    postUpdate(Manual_Away, OFF)
+end
+
 rule "Update Hall max and min temperatures"
 when
 	Item Temp_Sensor_Hall changed or
@@ -25,7 +33,7 @@ end
 
 rule "Switch off WOL"
 when
-    Item MainPC_Wake changed from OFF to ON
+    Item MainPC_Wake changed to ON
 then
     postUpdate(MainPC_Wake, OFF)
 end
