@@ -24,7 +24,14 @@ when
         Item Contact_FrontDoor changed from CLOSED to OPEN or
         Item Contact_BackDoor changed from CLOSED to OPEN
 then
-        timer = createTimer(now.plusSeconds(600)) [|
+        timer = createTimer(now.plusSeconds(900)) [|
             postUpdate(Auto_Away, ON)
         ]
+end
+
+rule "auto away changed"
+when
+        Item Auto_Away changed
+then
+        notifyMyAndroid("Away", "Auto away changed to " + AutoAway.state)
 end

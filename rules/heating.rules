@@ -13,6 +13,7 @@ when
 then
         if (Auto_Away.state != ON && Manual_Away.state != ON) {
             sendCommand(Temp_Desired_Thermostat, defaultTemp)
+            previousTemp = Temp_Desired_Thermostat.state
         }
         postUpdate(Heating_Boost, OFF)
 end
@@ -22,6 +23,7 @@ when
         Time cron "0 0 8 ? * MON-FRI"
 then
         sendCommand(Temp_Desired_Thermostat, minTemp)
+        previousTemp = Temp_Desired_Thermostat.state
         postUpdate(Heating_Boost, OFF)
 end
 
@@ -32,6 +34,7 @@ then
         if (Auto_Away.state != ON && Manual_Away.state != ON) {
             logInfo("heating.rules", "weekday evening - turn heating up")
             sendCommand(Temp_Desired_Thermostat, defaultTemp)
+            previousTemp = Temp_Desired_Thermostat.state
         }
         else {
             logInfo("heating.rules", "weekday evening - heating not turned up - away")
@@ -47,6 +50,7 @@ when
 then
         if (Auto_Away.state != ON && Manual_Away.state != ON) {
             sendCommand(Temp_Desired_Thermostat, nightTemp)
+            previousTemp = Temp_Desired_Thermostat.state
         }
         postUpdate(Heating_Boost, OFF)
 end
@@ -57,6 +61,7 @@ when
 then
         if (Auto_Away.state != ON && Manual_Away.state != ON) {
             sendCommand(Temp_Desired_Thermostat, defaultTemp)
+            previousTemp = Temp_Desired_Thermostat.state
         }
         postUpdate(Heating_Boost, OFF)
 end
@@ -66,6 +71,7 @@ when
         Time cron "0 30 10 ? * SAT-SUN"
 then
         sendCommand(Temp_Desired_Thermostat, minTemp)
+        previousTemp = Temp_Desired_Thermostat.state
         postUpdate(Heating_Boost, OFF)
 end
 
@@ -75,6 +81,7 @@ when
 then
         if (Auto_Away.state != ON && Manual_Away.state != ON) {
             sendCommand(Temp_Desired_Thermostat, defaultTemp)
+            previousTemp = Temp_Desired_Thermostat.state
         }
         postUpdate(Heating_Boost, OFF)
 end
@@ -85,6 +92,7 @@ when
 then
         if (Auto_Away.state != ON && Manual_Away.state != ON) {
             sendCommand(Temp_Desired_Thermostat, nightTemp)
+            previousTemp = Temp_Desired_Thermostat.state
         }
         postUpdate(Heating_Boost, OFF)
 end
@@ -119,4 +127,10 @@ then
         logInfo("heating.rules", "restoring heating to " + previousTemp)
         sendCommand(Temp_Desired_Thermostat, previousTemp)
 end
-    
+
+rule "Notify when heating on"
+when
+        Item Boiler_Thermo changed to ON
+then
+        notifyMyAndroid("Boiler", "Heating has come on")
+end
