@@ -70,7 +70,7 @@ Number	Boiler_Thermo	"Boiler Status [MAP(heat.map):%d]"	<fire>	(GF_Hall)		{ zwav
 
 /* Wake on LAN */
 Switch  MainPC_Wake     "Main Computer Wake" <computer> (FF_Study) {wol="192.168.1.0#74:d4:35:54:85:89"}
-Switch  MainPC_Alive "Main PC On?" <computer> (FF_Study) { exec="<[/bin/sh@@-c@@ping -c 1 192.168.1.15 | grep \"packets transmitted\" | sed -e \"s/.*1 received.*/ON/\" -e \"s/.*0 received.*/OFF/\":30000:REGEX((.*))]" }
+Switch  MainPC_Alive "Main PC On? [%s]" <computer> (FF_Study) { exec="<[/bin/sh@@-c@@ping -c 1 192.168.1.15 | grep \"packets transmitted\" | sed -e \"s/.*1 received.*/ON/\" -e \"s/.*0 received.*/OFF/\":60000:REGEX((.*))]" }
 
 /* Virtual Items */
 Switch	Auto_Away	"Auto Away? [%s]"	(All)

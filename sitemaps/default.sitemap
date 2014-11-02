@@ -58,7 +58,6 @@ sitemap default label="Main Menu"
 		Switch item=WallSwitch_Lounge labelcolor=[WallSwitch_Lounge_LastUpdate=="Uninitialized"="lightgray",WallSwitch_Lounge_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] 
 		Switch item=WallSwitch_Kitchen labelcolor=[WallSwitch_Kitchen_LastUpdate=="Uninitialized"="lightgray",WallSwitch_Kitchen_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] 
         Switch item=MainPC_Wake 
-        Switch item=MainPC_Alive 
         Switch item=Manual_Away
 
         Setpoint item=Temp_Desired_Thermostat labelcolor=[Temp_Desired_Thermostat_LastUpdate=="Uninitialized"="lightgray",Temp_Desired_Thermostat_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] 
@@ -82,6 +81,7 @@ sitemap default label="Main Menu"
     }
 	Frame label="Statistics" {
 		Text item=Auto_Away labelcolor=[Auto_Away_LastUpdate=="Uninitialized"="lightgray",Auto_Away_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] 
+        Text item=MainPC_Alive 
 		
 		Text item=Battery_Sensor_Hall labelcolor=[Battery_Sensor_Hall_LastUpdate=="Uninitialized"="lightgray",Battery_Sensor_Hall_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] 
         Text item=Battery_FrontDoor labelcolor=[Battery_FrontDoor_LastUpdate=="Uninitialized"="lightgray",Battery_FrontDoor_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] 

@@ -7,7 +7,8 @@ var Timer timer
 rule "motionSwitchOn"
 when
         Item Motion_Sensor_Hall changed from CLOSED to OPEN or
-        Item Motion_Sensor_Landing changed from CLOSED to OPEN
+        Item Motion_Sensor_Landing changed from CLOSED to OPEN or
+        Item MainPC_Awake changed from OFF to ON
 then
 		if (Auto_Away.state == ON)
 		{
@@ -25,7 +26,9 @@ when
         Item Contact_BackDoor changed from CLOSED to OPEN
 then
         timer = createTimer(now.plusSeconds(900)) [|
-            postUpdate(Auto_Away, ON)
+            if (Motion_Sensor_Hall.state == CLOSED && Motion_Sensor_Landing.state == CLOSED) {
+                postUpdate(Auto_Away, ON)
+            }
         ]
 end
 
