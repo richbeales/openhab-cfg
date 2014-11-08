@@ -82,6 +82,7 @@ sitemap default label="Main Menu"
 	Frame label="Statistics" {
 		Text item=Auto_Away labelcolor=[Auto_Away_LastUpdate=="Uninitialized"="lightgray",Auto_Away_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] 
         Text item=MainPC_Alive 
+        Text item=Television_Alive 
 		
 		Text item=Battery_Sensor_Hall labelcolor=[Battery_Sensor_Hall_LastUpdate=="Uninitialized"="lightgray",Battery_Sensor_Hall_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] 
         Text item=Battery_FrontDoor labelcolor=[Battery_FrontDoor_LastUpdate=="Uninitialized"="lightgray",Battery_FrontDoor_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] 
