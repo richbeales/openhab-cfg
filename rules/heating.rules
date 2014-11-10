@@ -2,7 +2,7 @@ import org.openhab.core.library.types.*
 import org.openhab.core.persistence.*
 import org.openhab.model.script.actions.*
  
-var Number defaultTemp = 21
+var Number defaultTemp = 20
 var Number minTemp = 9
 var Number nightTemp = 15
 var Number previousTemp
@@ -18,31 +18,31 @@ then
         postUpdate(Heating_Boost, OFF)
 end
 
-rule "heatingOffWeekdayMornings"
-when
-        Time cron "0 0 8 ? * MON-FRI"
-then
-        sendCommand(Temp_Desired_Thermostat, minTemp)
-        previousTemp = Temp_Desired_Thermostat.state
-        postUpdate(Heating_Boost, OFF)
-end
-
-rule "heatingOnWeekdayEvenings"
-when
-        Time cron "0 0 16 ? * MON-FRI"
-then
-        if (Auto_Away.state != ON && Manual_Away.state != ON) {
-            logInfo("heating.rules", "weekday evening - turn heating up")
-            sendCommand(Temp_Desired_Thermostat, defaultTemp)
-            previousTemp = Temp_Desired_Thermostat.state
-        }
-        else {
-            logInfo("heating.rules", "weekday evening - heating not turned up - away")
-            logInfo("heating.rules", "weekday evening - auto away = " + Auto_Away.state)
-            logInfo("heating.rules", "weekday evening - manual away = " + Manual_Away.state)
-        }
-        postUpdate(Heating_Boost, OFF)
-end
+#rule "heatingOffWeekdayMornings"
+#when
+#        Time cron "0 0 8 ? * MON-FRI"
+#then
+#        sendCommand(Temp_Desired_Thermostat, minTemp)
+#        previousTemp = Temp_Desired_Thermostat.state
+#        postUpdate(Heating_Boost, OFF)
+#end
+#
+#rule "heatingOnWeekdayEvenings"
+#when
+#        Time cron "0 0 16 ? * MON-FRI"
+#then
+#        if (Auto_Away.state != ON && Manual_Away.state != ON) {
+#            logInfo("heating.rules", "weekday evening - turn heating up")
+#            sendCommand(Temp_Desired_Thermostat, defaultTemp)
+#            previousTemp = Temp_Desired_Thermostat.state
+#        }
+#        else {
+#            logInfo("heating.rules", "weekday evening - heating not turned up - away")
+#            logInfo("heating.rules", "weekday evening - auto away = " + Auto_Away.state)
+#            logInfo("heating.rules", "weekday evening - manual away = " + Manual_Away.state)
+#        }
+#        postUpdate(Heating_Boost, OFF)
+#end
 
 rule "heatingOffWeekdayEvenings"
 when
@@ -66,25 +66,25 @@ then
         postUpdate(Heating_Boost, OFF)
 end
 
-rule "heatingOffWeekendMornings"
-when
-        Time cron "0 30 10 ? * SAT-SUN"
-then
-        sendCommand(Temp_Desired_Thermostat, minTemp)
-        previousTemp = Temp_Desired_Thermostat.state
-        postUpdate(Heating_Boost, OFF)
-end
-
-rule "heatingOnWeekendEvenings"
-when
-        Time cron "0 30 16 ? * SAT-SUN"
-then
-        if (Auto_Away.state != ON && Manual_Away.state != ON) {
-            sendCommand(Temp_Desired_Thermostat, defaultTemp)
-            previousTemp = Temp_Desired_Thermostat.state
-        }
-        postUpdate(Heating_Boost, OFF)
-end
+#rule "heatingOffWeekendMornings"
+#when
+#        Time cron "0 30 10 ? * SAT-SUN"
+#then
+#        sendCommand(Temp_Desired_Thermostat, minTemp)
+#        previousTemp = Temp_Desired_Thermostat.state
+#        postUpdate(Heating_Boost, OFF)
+#end
+#
+#rule "heatingOnWeekendEvenings"
+#when
+#        Time cron "0 30 16 ? * SAT-SUN"
+#then
+#        if (Auto_Away.state != ON && Manual_Away.state != ON) {
+#            sendCommand(Temp_Desired_Thermostat, defaultTemp)
+#            previousTemp = Temp_Desired_Thermostat.state
+#        }
+#        postUpdate(Heating_Boost, OFF)
+#end
 
 rule "heatingOffWeekendEvenings"
 when
