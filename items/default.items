@@ -24,8 +24,9 @@ Group	Landing_Temperature_Chart
 
 /* Weather from Yahoo */
 Group	Weather_Chart	(Weather)	
-Number	Weather_Temperature	"Outside Temperature [%.1f °C]"	<temperature>	(Weather_Chart)		{ http="<[yahooweathercache:300000:XSLT(yahoo_weather_temperature.xsl)]" }
-Number	Weather_WindSpeed	"Wind speed [%.1f]"	<wind>	(Weather_Chart)		{ http="<[yahooweathercache:300000:XSLT(yahoo_weather_wind_speed.xsl)]" }
+Number	Weather_Temperature	"Outside Temperature [%.1f °C]"	<temperature>	(Weather_Chart)		{ http="<[wuweathercurrentcache:300000:XSLT(wu_weather_current_temp.xsl)]" }
+Number	Weather_Forecast_Temp	"Outside Forecast Temperature [%.1f °C]"	<temperature>	(Weather_Chart)		{ http="<[wuweatherforecastcache:1800000:XSLT(wu_weather_forecast_temphigh.xsl)]" }
+Number	Weather_WindSpeed	"Wind speed [%.1f]"	<wind>	(Weather_Chart)		{ http="<[wuweathercurrentcache:300000:XSLT(wu_weather_current_windspeed.xsl)]" }
 Number	Weather_Temp_Max	"Todays Maximum [%.1f °C]"	<temperature>	(Weather_Chart)	
 Number	Weather_Temp_Min	"Todays Minimum [%.1f °C]"	<temperature>	(Weather_Chart)	
 Number	Weather_Chart_Period	"Chart Period"

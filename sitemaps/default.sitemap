@@ -11,6 +11,7 @@ sitemap default label="Main Menu"
 				Text item=Weather_Temp_Max labelcolor=[>25="orange",>15="green",>5="orange",<=5="blue"]
 				Text item=Weather_Temp_Min labelcolor=[>25="orange",>15="green",>5="orange",<=5="blue"]
 				Text item=Weather_WindSpeed labelcolor=[>25="orange",>15="green",>5="orange",<=5="blue"]
+				Text item=Weather_Forecast_Temp labelcolor=[>25="orange",>15="green",>5="orange",<=5="blue"]
 				Text item=Weather_LastUpdate visibility=[Weather_LastUpdate>30] labelcolor=[Weather_LastUpdate>120="orange", Weather_LastUpdate>300="red"]
 			}
 			Frame {
