@@ -13,7 +13,6 @@ end
 rule "Update Hall max and min temperatures"
 when
 	Item Temp_Sensor_Hall changed or
-	Time cron "0 0 0 * * ?" or
 	System started
 then	
 	postUpdate(Temp_Sensor_Hall_Max, Temp_Sensor_Hall.maximumSince(now.toDateMidnight).state)
@@ -24,11 +23,19 @@ end
 rule "Update Landing max and min temperatures"
 when
 	Item Temp_Sensor_Landing changed or
-	Time cron "0 0 0 * * ?" or
 	System started
 then	
 	postUpdate(Temp_Sensor_Landing_Max, Temp_Sensor_Landing.maximumSince(now.toDateMidnight).state)
 	postUpdate(Temp_Sensor_Landing_Min, Temp_Sensor_Landing.minimumSince(now.toDateMidnight).state)
+end
+
+rule "Update Weather max and min temperatures"
+when
+	Item Weather_Temperature changed or
+	System started
+then	
+	postUpdate(Weather_Temp_Max, Weather_Temperature.maximumSince(now.toDateMidnight).state)
+	postUpdate(Weather_Temp_Min, Weather_Temperature.minimumSince(now.toDateMidnight).state)
 end
 
 rule "Switch off WOL"

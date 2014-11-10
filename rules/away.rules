@@ -8,8 +8,8 @@ rule "motionSwitchOn"
 when
         Item Motion_Sensor_Hall changed from CLOSED to OPEN or
         Item Motion_Sensor_Landing changed from CLOSED to OPEN or
-        Item MainPC_Awake changed from OFF to ON
-        Item Television_Awake changed from OFF to ON
+        Item MainPC_Alive changed from OFF to ON
+        Item Television_Alive changed from OFF to ON
 then
 		if (Auto_Away.state == ON)
 		{
@@ -27,7 +27,7 @@ when
         Item Contact_BackDoor changed from CLOSED to OPEN
 then
         timer = createTimer(now.plusSeconds(900)) [|
-            if (Motion_Sensor_Hall.state == CLOSED && Motion_Sensor_Landing.state == CLOSED && MainPC_Awake.state == OFF && Television_Awake.state == OFF) {
+            if (Motion_Sensor_Hall.state == CLOSED && Motion_Sensor_Landing.state == CLOSED && MainPC_Alive.state == OFF && Television_Alive.state == OFF) {
                 postUpdate(Auto_Away, ON)
             }
         ]
