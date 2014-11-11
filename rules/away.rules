@@ -7,9 +7,7 @@ var Timer timer
 rule "motionSwitchOn"
 when
         Item Motion_Sensor_Hall changed from CLOSED to OPEN or
-        Item Motion_Sensor_Landing changed from CLOSED to OPEN or
-        Item MainPC_Alive changed from OFF to ON
-        Item Television_Alive changed from OFF to ON
+        Item Motion_Sensor_Landing changed from CLOSED to OPEN
 then
 		if (Auto_Away.state == ON)
 		{
