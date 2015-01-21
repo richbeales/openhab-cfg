@@ -76,6 +76,10 @@ Switch  MainPC_Alive "Main PC On? [%s]" <computer> (FF_Study) { exec="<[/bin/sh@
 /* Chromecast */
 Switch  Television_Alive "TV On? [%s]" <video> (GF_Lounge) { exec="<[/bin/sh@@-c@@ping -c 1 192.168.1.17 | grep \"packets transmitted\" | sed -e \"s/.*1 received.*/ON/\" -e \"s/.*0 received.*/OFF/\":60000:REGEX((.*))]" }
 
+/* Solaredge monitoring */
+Number	Solar_OutputToday	"Current Solar Gen [%.1f Wh]"	<sun>	(Outdoor_Front)		{ http="<[solaredgeenergycache:300000:REGEX((.*))]" }
+
+
 /* Virtual Items */
 Switch	Auto_Away	"Auto Away? [%s]"	(All)
 Switch	Manual_Away	"Manual Away?"	(All)	

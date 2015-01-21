@@ -79,6 +79,7 @@ sitemap default label="Main Menu"
         Text item=Contact_FrontDoor labelcolor=[Contact_FrontDoor_LastUpdate=="Uninitialized"="lightgray",Contact_FrontDoor_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] 
         Text item=Contact_BackDoor labelcolor=[Contact_BackDoor_LastUpdate=="Uninitialized"="lightgray",Contact_BackDoor_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] 
         Text item=Temp_Sensor_Thermostat labelcolor=[Temp_Sensor_Thermostat_LastUpdate=="Uninitialized"="lightgray",Temp_Sensor_Thermostat_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] 
+        Text item=Solar_OutputToday 
     }
 	Frame label="Statistics" {
 		Text item=Auto_Away labelcolor=[Auto_Away_LastUpdate=="Uninitialized"="lightgray",Auto_Away_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] 

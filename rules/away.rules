@@ -25,15 +25,17 @@ when
         Item Contact_BackDoor changed from CLOSED to OPEN
 then
         timer = createTimer(now.plusSeconds(900)) [|
-            if (Motion_Sensor_Hall.state == CLOSED && Motion_Sensor_Landing.state == CLOSED && MainPC_Alive.state == OFF && Television_Alive.state == OFF) {
+            if (Motion_Sensor_Hall.state == CLOSED && Motion_Sensor_Landing.state == CLOSED && Television_Alive.state == OFF) {
                 postUpdate(Auto_Away, ON)
             }
         ]
 end
 
-rule "auto away changed"
-when
-        Item Auto_Away changed
-then
-        notifyMyAndroid("Away", "Auto away changed to " + Auto_Away.state)
-end
+/* removed due to error with context null https://groups.google.com/forum/#!topic/openhab/3OHBFnliUe8 */
+/*rule "auto away changed"
+*when
+*        Item Auto_Away changed
+*then
+*        notifyMyAndroid("Away", "Auto away changed to " + Auto_Away.state)
+*end
+*/

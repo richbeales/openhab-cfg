@@ -9,7 +9,7 @@ var Number previousTemp
 
 rule "heatingOnWeekdayMornings"
 when
-        Time cron "0 30 6 ? * MON-FRI"
+        Time cron "0 20 6 ? * MON-FRI"
 then
         if (Auto_Away.state != ON && Manual_Away.state != ON) {
             logInfo("heating.rules", "weekday morning - heating on")
@@ -49,7 +49,7 @@ end
 
 rule "heatingOffWeekdayEvenings"
 when
-        Time cron "0 0 22 ? * MON-FRI"
+        Time cron "0 45 21 ? * MON-FRI"
 then
         if (Auto_Away.state != ON && Manual_Away.state != ON) {
             logInfo("heating.rules", "weekday evening - heating down")
@@ -61,7 +61,7 @@ end
 
 rule "heatingOnWeekendMornings"
 when
-        Time cron "0 30 8 ? * SAT-SUN"
+        Time cron "0 15 8 ? * SAT-SUN"
 then
         if (Auto_Away.state != ON && Manual_Away.state != ON) {
             logInfo("heating.rules", "weekend morning - heating on")
@@ -95,7 +95,7 @@ end
 
 rule "heatingOffWeekendEvenings"
 when
-        Time cron "0 30 22 ? * SAT-SUN"
+        Time cron "0 10 22 ? * SAT-SUN"
 then
         if (Auto_Away.state != ON && Manual_Away.state != ON) {
             logInfo("heating.rules", "weekend evening - heating down")
@@ -115,6 +115,7 @@ then
         logInfo("heating.rules", "previous temp was " + previousTemp)
         sendCommand(Temp_Desired_Thermostat, minTemp)
         postUpdate(Heating_Boost, OFF)
+        notifyMyAndroid("Away", "Away changed to " + Auto_Away.state)
 end
 
 rule "heatingBoost"
@@ -134,5 +135,6 @@ when
 then
         logInfo("heating.rules", "restoring heating to " + previousTemp)
         sendCommand(Temp_Desired_Thermostat, previousTemp)
+        notifyMyAndroid("Away", "Away changed to " + Auto_Away.state)
 end
 
