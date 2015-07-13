@@ -21,6 +21,7 @@ Group	Outdoor_Rear	"Back Garden"	<garden2>	(Outdoor)
 Group	Outdoor_Garage	"Garage"	<garage>	(Outdoor)	
 Group	Hall_Temperature_Chart
 Group	Landing_Temperature_Chart
+Group   Battery
 
 /* Weather from Yahoo */
 Group	Weather_Chart	(Weather)	
@@ -39,7 +40,7 @@ DateTime	Date	"Date [%1$tA, %1$td.%1$tm.%1$tY %1$tT]"	<calendar>	{ ntp="Europe/L
 Number	Temp_Sensor_Hall	"Hallway temperature: [%.1f C]"	<temperature> (GF_Hall,Hall_Temperature_Chart)		{ zwave="34:command=sensor_multilevel,sensor_type=1" }
 Number	Humid_Sensor_Hall	"Hall Relative humidity: [%.0f %%]"	<water>	(GF_Hall) { zwave="34:command=sensor_multilevel,sensor_type=5" }
 Number	Lumin_Sensor_Hall	"Hall Luminance: [%.0f Lux]"	<sun>	(GF_Hall)		{ zwave="34:command=sensor_multilevel,sensor_type=3" }
-Number	Battery_Sensor_Hall	"Hall Sensor Battery: [%d %%]"	<battery> (GF_Hall)		{ zwave="34:command=battery" }
+Number	Battery_Sensor_Hall	"Hall Sensor Battery: [%d %%]"	<battery> (GF_Hall,Battery)		{ zwave="34:command=battery" }
 Contact	Motion_Sensor_Hall	"Hall Sensor [MAP(motion.map):%s]"	(GF_Hall) { zwave="34:command=sensor_binary,respond_to_basic=true" }
 
 /* Landing Aeon Labs Multisensor - USB Powered */
@@ -55,12 +56,12 @@ Switch	WallSwitch_Lounge	"Lounge Wall switch"	(GF_Lounge)		{ zwave="36" }
 
 /* Vision Security Door/Window Sensors on Doors */
 Contact	Contact_BackDoor	"Back Door [MAP(motion.map):%s]"	<frontdoor> (GF_Kitchen)		{ zwave="5:command=basic,respond_to_basic=true" }
-Number	Battery_BackDoor	"Back Door Battery: [%d %%]"	<battery>	(GF_Kitchen)		{ zwave="5:command=battery" }
+Number	Battery_BackDoor	"Back Door Battery: [%d %%]"	<battery>	(GF_Kitchen,Battery)		{ zwave="5:command=battery" }
 Contact	Contact_FrontDoor	"Front Door [MAP(motion.map):%s]"	<frontdoor> (GF_Hall)		{ zwave="6:command=basic,respond_to_basic=true" }
-Number	Battery_FrontDoor	"Front Door Battery: [%d %%]"	<battery>	(GF_Hall)		{ zwave="6:command=battery" }
+Number	Battery_FrontDoor	"Front Door Battery: [%d %%]"	<battery>	(GF_Hall,Battery)		{ zwave="6:command=battery" }
 
 /* Horstmann HRT4-ZW Thermostat - set wake up interval to 900 seconds */
-Number	Battery_Sensor_Thermostat	"Thermostat Battery: [%d %%]"	<battery> (GF_Lounge)		{ zwave="31:command=battery" }
+Number	Battery_Sensor_Thermostat	"Thermostat Battery: [%d %%]"	<battery> (GF_Lounge,Battery)		{ zwave="31:command=battery" }
 Number	Temp_Desired_Thermostat	"Thermostat Desired Temp: [%.1f C]" <temperature> (GF_Lounge)		{ zwave="31:command=thermostat_setpoint, setpoint_type=1" }
 Number	Temp_Sensor_Thermostat	"Thermostat Measured Temp: [%.1f C]" <temperature>	(GF_Lounge)		{ zwave="31:command=sensor_multilevel, sensor_type=1" }
 Number	HeatCall_Thermostat	"Thermostat calling for heat [MAP(heat.map):%d]"	<fire> (GF_Lounge)		{ zwave="31:command=switch_binary" }
