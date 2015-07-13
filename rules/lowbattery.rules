@@ -1,0 +1,18 @@
+import org.openhab.core.library.types.DecimalType
+
+val String mailTo = "rich@richbeales.net"
+val int lowBatteryThreshold = 20
+
+rule "Battery Monitor"
+when Time cron "0 0 19 * * ?"
+then
+    if (! Battery.allMembers.filter([state < lowBatteryThreshold]).empty) {
+        val report = Battery.allMembers.filter([state instanceof DecimalType]).sortBy([state]).map[
+            name + ": " + state.format("%d%%")
+        ].join("\n")
+
+        val message = "Battery levels:\n\n" + report + "\n\nRegards,\n\nopenHab"
+
+        sendMail(mailTo, "Low battery alert", message)
+    }
+end
