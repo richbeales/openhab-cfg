@@ -1,0 +1,62 @@
+import org.openhab.core.library.types.*
+
+rule "Light Scenes"
+when
+Item Light_scene received command
+then
+if (receivedCommand==0) {
+    sendCommand(Light_scene_ColorSelect, new HSBType(new DecimalType(0),new PercentType(0),new PercentType(100)))
+}
+if (receivedCommand==1) {
+    sendCommand(Light_scene_ColorSelect, new HSBType(new DecimalType(0),new PercentType(100),new PercentType(100)))
+}
+if (receivedCommand==2) {
+    sendCommand(Light_scene_ColorSelect, new HSBType(new DecimalType(60),new PercentType(100),new PercentType(100)))
+}
+if (receivedCommand==3) {
+    sendCommand(Light_scene_ColorSelect, new HSBType(new DecimalType(120),new PercentType(100),new PercentType(100)))
+}
+if (receivedCommand==4) {
+    sendCommand(Light_scene_ColorSelect, new HSBType(new DecimalType(120),new PercentType(100),new PercentType(50)))
+}
+if (receivedCommand==5) {
+    sendCommand(Light_scene_ColorSelect, new HSBType(new DecimalType(180),new PercentType(100),new PercentType(100)))
+}
+if (receivedCommand==6) {
+    sendCommand(Light_scene_ColorSelect, new HSBType(new DecimalType(240),new PercentType(100),new PercentType(100)))
+}
+if (receivedCommand==7) {
+    sendCommand(Light_scene_ColorSelect, new HSBType(new DecimalType(300),new PercentType(100),new PercentType(100)))
+}
+end
+
+rule "Lights on at sunset for 2 hours"
+when
+    Item Sunset_Event received update ON
+then
+    sendCommand(Light_AllGroundFloor, ON)
+    timer = createTimer(now.plusSeconds(7200)) [|
+        sendCommand(Light_AllGroundFloor, OFF)
+        ]
+end
+
+rule "Lights on at motion after dark"
+when
+    Item Motion_Sensor_Hall changed from CLOSED to OPEN
+then
+    if (now.isAfter((Sunset_Time.state as DateTimeType).calendar.timeInMillis)  || now.isBefore((Sunrise_Time.state as DateTimeType).calendar.timeInMillis)) {
+        sendCommand(Light_scene, 1)
+        timer = createTimer(now.plusSeconds(600)) [|
+            sendCommand(Light_AllGroundFloor, OFF)
+        ]
+    }
+end
+
+/*
+rule "Lights off at sunrise"
+when
+    Item Sunrise_Event received update ON
+then
+    sendCommand(Light_AllGroundFloor, OFF)
+end
+*/
