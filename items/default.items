@@ -1,117 +1,130 @@
 /* Groups */
 Group	All
-Group	gGF	(All)	
-Group	gFF	(All)	
-Group	Outdoor	(All)	
-Group	Weather	(All)	
-Group	GF_Hall	"Downstairs Hall"	<corridor>	(gGF)	
-Group	GF_Lounge	"Lounge"	<sofa>	(gGF)	
-Group	GF_Kitchen	"Kitchen"	<kitchen>	(gGF)	
-Group	GF_Dining	"Dining Room"	<sofa>	(gGF)	
-Group	GF_Toilet	"Downstairs Toilet"	<bath>	(gGF)	
-Group	FF_Hall	"Upstairs Hall"	<corridor>	(gFF)	
-Group	FF_Bed1	"Main Bedroom"	<bedroom>	(gFF)	
-Group	FF_Bed2	"Nikita Bedroom"	<bedroom>	(gFF)	
-Group	FF_Bed3	"Amelia Bedroom"	<bedroom>	(gFF)	
-Group	FF_Study	"Study"	<office>	(gFF)	
-Group	FF_Bathroom	"Bathroom"	<bath>	(gFF)	
-Group	FF_Ensuite	"En suite"	<bath>	(gFF)	
-Group	Outdoor_Front	"Front Garden"	<garden>	(Outdoor)	
-Group	Outdoor_Rear	"Back Garden"	<garden2>	(Outdoor)	
-Group	Outdoor_Garage	"Garage"	<garage>	(Outdoor)	
+Group	gGF	(All)
+Group	gFF	(All)
+Group	Outdoor	(All)
+Group	Weather	(All)
+Group	GF_Hall	"Downstairs Hall"	<corridor>	(gGF)
+Group	GF_Lounge	"Lounge"	<sofa>	(gGF)
+Group	GF_Kitchen	"Kitchen"	<kitchen>	(gGF)
+Group	GF_Dining	"Dining Room"	<sofa>	(gGF)
+Group	GF_Toilet	"Downstairs Toilet"	<bath>	(gGF)
+Group	FF_Hall	"Upstairs Hall"	<corridor>	(gFF)
+Group	FF_Bed1	"Main Bedroom"	<bedroom>	(gFF)
+Group	FF_Bed2	"Nikita Bedroom"	<bedroom>	(gFF)
+Group	FF_Bed3	"Amelia Bedroom"	<bedroom>	(gFF)
+Group	FF_Study	"Study"	<office>	(gFF)
+Group	FF_Bathroom	"Bathroom"	<bath>	(gFF)
+Group	FF_Ensuite	"En suite"	<bath>	(gFF)
+Group	Outdoor_Front	"Front Garden"	<garden>	(Outdoor)
+Group	Outdoor_Rear	"Back Garden"	<garden2>	(Outdoor)
+Group	Outdoor_Garage	"Garage"	<garage>	(Outdoor)
 Group	Hall_Temperature_Chart
 Group	Landing_Temperature_Chart
-Group   Battery
+Group	Battery
+Group	Mobile
+Group	Lights
 
 /* Weather from Yahoo */
-Group	Weather_Chart	(Weather)	
-Number	Weather_Temperature	"Outside Temperature [%.1f °C]"	<temperature>	(Weather_Chart)		{ http="<[wuweathercurrentcache:300000:XSLT(wu_weather_current_temp.xsl)]" }
-Number	Weather_Forecast_Temp	"Outside Forecast Temperature [%.1f °C]"	<temperature>	(Weather_Chart)		{ http="<[wuweatherforecastcache:1800000:XSLT(wu_weather_forecast_temphigh.xsl)]" }
-Number	Weather_WindSpeed	"Wind speed [%.1f]"	<wind>	(Weather_Chart)		{ http="<[wuweathercurrentcache:300000:XSLT(wu_weather_current_windspeed.xsl)]" }
-Number	Weather_Temp_Max	"Todays Maximum [%.1f °C]"	<temperature>	(Weather_Chart)	
-Number	Weather_Temp_Min	"Todays Minimum [%.1f °C]"	<temperature>	(Weather_Chart)	
+Group	Weather_Chart	(Weather)
+Number	Weather_Temperature	"Outside Temperature [%.1f °C]"	<temperature>	(Weather_Chart)	{http="<[wuweathercurrentcache:300000:XSLT(wu_weather_current_temp.xsl)]"}
+Number	Weather_Forecast_Temp	"Outside Forecast Temperature [%.1f °C]"	<temperature>	(Weather_Chart)	{http="<[wuweatherforecastcache:1800000:XSLT(wu_weather_forecast_temphigh.xsl)]"}
+Number	Weather_WindSpeed	"Wind speed [%.1f]"	<wind>	(Weather_Chart)	{http="<[wuweathercurrentcache:300000:XSLT(wu_weather_current_windspeed.xsl)]"}
+Number	Weather_Temp_Max	"Todays Maximum [%.1f °C]"	<temperature>	(Weather_Chart)
+Number	Weather_Temp_Min	"Todays Minimum [%.1f °C]"	<temperature>	(Weather_Chart)
 Number	Weather_Chart_Period	"Chart Period"
 DateTime	Weather_LastUpdate	"Last Update [%1$ta %1$tR]"	<clock>
 
 /* Network Time NTP */
-DateTime	Date	"Date [%1$tA, %1$td.%1$tm.%1$tY %1$tT]"	<calendar>	{ ntp="Europe/London:en_GB" }
+DateTime	Date	"Date [%1$tA, %1$td.%1$tm.%1$tY %1$tT]"	<calendar>	{ntp="Europe/London:en_GB"}
 
 /* Hallway Aeon Labs Multisensor - Battery Powered - set Configuration item 101 to 225 (send all values) and 111 to 3600 (hourly) using Habmin */
-Number	Temp_Sensor_Hall	"Hallway temperature: [%.1f C]"	<temperature> (GF_Hall,Hall_Temperature_Chart)		{ zwave="34:command=sensor_multilevel,sensor_type=1" }
-Number	Humid_Sensor_Hall	"Hall Relative humidity: [%.0f %%]"	<water>	(GF_Hall) { zwave="34:command=sensor_multilevel,sensor_type=5" }
-Number	Lumin_Sensor_Hall	"Hall Luminance: [%.0f Lux]"	<sun>	(GF_Hall)		{ zwave="34:command=sensor_multilevel,sensor_type=3" }
-Number	Battery_Sensor_Hall	"Hall Sensor Battery: [%d %%]"	<battery> (GF_Hall,Battery)		{ zwave="34:command=battery" }
-Contact	Motion_Sensor_Hall	"Hall Sensor [MAP(motion.map):%s]"	(GF_Hall) { zwave="34:command=sensor_binary,respond_to_basic=true" }
+Number	Temp_Sensor_Hall	"Hallway temperature: [%.1f C]"	<temperature> (GF_Hall,Hall_Temperature_Chart)	{zwave="34:command=sensor_multilevel,sensor_type=1"}
+Number	Humid_Sensor_Hall	"Hall Relative humidity: [%.0f %%]"	<water>	(GF_Hall) {zwave="34:command=sensor_multilevel,sensor_type=5"}
+Number	Lumin_Sensor_Hall	"Hall Luminance: [%.0f Lux]"	<sun>	(GF_Hall)	{zwave="34:command=sensor_multilevel,sensor_type=3"}
+Number	Battery_Sensor_Hall	"Hall Sensor Battery: [%d %%]"	<battery> (GF_Hall,Battery)	{zwave="34:command=battery"}
+Contact	Motion_Sensor_Hall	"Hall Sensor [MAP(motion.map):%s]"	(GF_Hall)	{zwave="34:command=sensor_binary,respond_to_basic=true"}
 
 /* Landing Aeon Labs Multisensor - USB Powered */
-Number	Temp_Sensor_Landing	"Landing temperature: [%.1f C]"	<temperature>	(FF_Hall,Landing_Temperature_Chart)		{ zwave="2:command=sensor_multilevel,sensor_type=1" }
-Number	Humid_Sensor_Landing	"Landing Relative humidity: [%.0f %%]"	<water>	(FF_Hall)		{ zwave="2:command=sensor_multilevel,sensor_type=5" }
-Number	Lumin_Sensor_Landing	"Landing Luminance: [%.0f Lux]"	<sun>	(FF_Hall)		{ zwave="2:command=sensor_multilevel,sensor_type=3" }
-Contact	Motion_Sensor_Landing	"Landing Sensor [MAP(motion.map):%s]"	(FF_Hall)		{ zwave="2:command=sensor_binary,respond_to_basic=true" }
+Number	Temp_Sensor_Landing	"Landing temperature: [%.1f C]"	<temperature>	(FF_Hall,Landing_Temperature_Chart)	{zwave="2:command=sensor_multilevel,sensor_type=1"}
+Number	Humid_Sensor_Landing	"Landing Relative humidity: [%.0f %%]"	<water>	(FF_Hall)	{zwave="2:command=sensor_multilevel,sensor_type=5"}
+Number	Lumin_Sensor_Landing	"Landing Luminance: [%.0f Lux]"	<sun>	(FF_Hall)	{zwave="2:command=sensor_multilevel,sensor_type=3"}
+Contact	Motion_Sensor_Landing	"Landing Sensor [MAP(motion.map):%s]"	(FF_Hall)	{zwave="2:command=sensor_binary,respond_to_basic=true"}
 
 /* TKB Home Wall switches */
-Switch	WallSwitch_Hall	"Hallway Wall switch"	(GF_Hall)		{ zwave="3:0" }
-Switch	WallSwitch_Kitchen	"Kitchen Wall switch"	(GF_Kitchen)		{ zwave="35" }
-Switch	WallSwitch_Lounge	"Lounge Wall switch"	(GF_Lounge)		{ zwave="36" }
+Switch	WallSwitch_Hall	"Hallway Wall switch"	(GF_Hall)	{ zwave="3:0" }
+Switch	WallSwitch_Kitchen	"Kitchen Wall switch"	(GF_Kitchen)	{ zwave="35" }
+Switch	WallSwitch_Lounge	"Lounge Wall switch"	(GF_Lounge)	{ zwave="36" }
 
 /* Vision Security Door/Window Sensors on Doors */
-Contact	Contact_BackDoor	"Back Door [MAP(motion.map):%s]"	<frontdoor> (GF_Kitchen)		{ zwave="5:command=basic,respond_to_basic=true" }
-Number	Battery_BackDoor	"Back Door Battery: [%d %%]"	<battery>	(GF_Kitchen,Battery)		{ zwave="5:command=battery" }
-Contact	Contact_FrontDoor	"Front Door [MAP(motion.map):%s]"	<frontdoor> (GF_Hall)		{ zwave="6:command=basic,respond_to_basic=true" }
-Number	Battery_FrontDoor	"Front Door Battery: [%d %%]"	<battery>	(GF_Hall,Battery)		{ zwave="6:command=battery" }
+Contact	Contact_BackDoor	"Back Door [MAP(motion.map):%s]"	<frontdoor> (GF_Kitchen)	{zwave="5:command=basic,respond_to_basic=true"}
+Number	Battery_BackDoor	"Back Door Battery: [%d %%]"	<battery>	(GF_Kitchen,Battery)	{zwave="5:command=battery"}
+Contact	Contact_FrontDoor	"Front Door [MAP(motion.map):%s]"	<frontdoor> (GF_Hall)	{zwave="6:command=basic,respond_to_basic=true"}
+Number	Battery_FrontDoor	"Front Door Battery: [%d %%]"	<battery>	(GF_Hall,Battery)	{zwave="6:command=battery"}
 
 /* Horstmann HRT4-ZW Thermostat - set wake up interval to 900 seconds */
-Number	Battery_Sensor_Thermostat	"Thermostat Battery: [%d %%]"	<battery> (GF_Lounge,Battery)		{ zwave="31:command=battery" }
-Number	Temp_Desired_Thermostat	"Thermostat Desired Temp: [%.1f C]" <temperature> (GF_Lounge)		{ zwave="31:command=thermostat_setpoint, setpoint_type=1" }
-Number	Temp_Sensor_Thermostat	"Thermostat Measured Temp: [%.1f C]" <temperature>	(GF_Lounge)		{ zwave="31:command=sensor_multilevel, sensor_type=1" }
-Number	HeatCall_Thermostat	"Thermostat calling for heat [MAP(heat.map):%d]"	<fire> (GF_Lounge)		{ zwave="31:command=switch_binary" }
+Number	Battery_Sensor_Thermostat	"Thermostat Battery: [%d %%]"	<battery> (GF_Lounge,Battery)	{zwave="31:command=battery"}
+Number	Temp_Desired_Thermostat	"Thermostat Desired Temp: [%.1f C]" <temperature> (GF_Lounge)	{zwave="31:command=thermostat_setpoint, setpoint_type=1"}
+Number	Temp_Sensor_Thermostat	"Thermostat Measured Temp: [%.1f C]" <temperature>	(GF_Lounge)	{zwave="31:command=sensor_multilevel, sensor_type=1"}
+Number	HeatCall_Thermostat	"Thermostat calling for heat [MAP(heat.map):%d]"	<fire>	(GF_Lounge)	{zwave="31:command=switch_binary"}
 
 /* Horstmann ASR-ZW Boiler Switch */
-Switch	Boiler_Sensor	"Boiler Switch"	<fire>	(GF_Hall)		{ zwave="33:command=switch_binary" }
-Number	Boiler_Thermo	"Boiler Status [MAP(heat.map):%d]"	<fire>	(GF_Hall)		{ zwave="33:command=thermostat_mode,refresh_interval=600" }
+Switch	Boiler_Sensor	"Boiler Switch"	<fire>	(GF_Hall)	{zwave="33:command=switch_binary"}
+Number	Boiler_Thermo	"Boiler Status [MAP(thermostatmode.map):%d]"	<fire>	(GF_Hall)	{zwave="33:command=thermostat_mode,refresh_interval=600"}
 
 /* Wake on LAN */
-Switch  MainPC_Wake     "Main Computer Wake" <computer> (FF_Study) {wol="192.168.1.0#74:d4:35:54:85:89"}
-Switch  MainPC_Alive "Main PC On? [%s]" <computer> (FF_Study) { exec="<[/bin/sh@@-c@@ping -c 1 192.168.1.15 | grep \"packets transmitted\" | sed -e \"s/.*1 received.*/ON/\" -e \"s/.*0 received.*/OFF/\":60000:REGEX((.*))]" }
+Switch	MainPC_Wake	"Main Computer Wake"	<computer>	(FF_Study)	{wol="10.1.1.0#74:d4:35:54:85:89"}
 
-/* Chromecast */
-Switch  Television_Alive "TV On? [%s]" <video> (GF_Lounge) { exec="<[/bin/sh@@-c@@ping -c 1 192.168.1.17 | grep \"packets transmitted\" | sed -e \"s/.*1 received.*/ON/\" -e \"s/.*0 received.*/OFF/\":60000:REGEX((.*))]" }
+/* Network Pings */
+Switch	Television_Alive	"TV On? [%s]"	<video>	(GF_Lounge)	{exec="<[/bin/sh@@-c@@ping -c 1 10.1.0.8 | grep \"packets transmitted\" | sed -e \"s/.*1 received.*/ON/\" -e \"s/.*0 received.*/OFF/\":60000:REGEX((.*))]"}
+Switch	MainPC_Alive	"Main PC On? [%s]"	<computer>	(FF_Study)	{exec="<[/bin/sh@@-c@@ping -c 1 10.1.0.10 | grep \"packets transmitted\" | sed -e \"s/.*1 received.*/ON/\" -e \"s/.*0 received.*/OFF/\":60000:REGEX((.*))]"}
+Switch	RichPhone_Alive "Richard Phone On? [%s]" <computer> (Mobile) {exec="<[/bin/sh@@-c@@ping -c 1 10.1.0.11 | grep \"packets transmitted\" | sed -e \"s/.*1 received.*/ON/\" -e \"s/.*0 received.*/OFF/\":60000:REGEX((.*))]"}
 
 /* Solaredge monitoring */
-Number	Solar_OutputToday	"Current Solar Gen [%.1f Wh]"	<sun>	(Outdoor_Front)		{ http="<[solaredgeenergycache:300000:REGEX((.*))]" }
+Number	Solar_OutputToday	"Current Solar Gen [%.1f Wh]"	<sun>	(Outdoor_Front)		{http="<[solaredgeenergycache:300000:REGEX((.*))]"}
 
+/* MiLight bulbs */
+Switch	Light_AllGroundFloor	"All Lights"	<whites>	(GF_Hall,Lights)	{milight="bridge1;6"}
+Dimmer	Light_HallBrightness	"Hall Brightness"	<whites>	(GF_Hall,Lights)	{milight="bridge1;6;brightness"}
+Number	Light_scene "Scenes"	<colorwheel>	(GF_Hall,Lights)
+Color	Light_scene_ColorSelect	"Scene Selector"	<colorwheel>	(GF_Hall,Lights)	{milight="bridge1;6;rgb"}
+
+/* Astro */
+Switch	Sunrise_Event	{astro="planet=sun, type=rise, property=start"}
+Switch	Sunset_Event	{astro="planet=sun, type=set, property=end, offset=-30"}
+DateTime	Sunrise_Time	"Sunrise [%1$tH:%1$tM]"	<calendar>	{astro="planet=sun, type=rise, property=start"}
+DateTime	Sunset_Time	"Sunset [%1$tH:%1$tM]"	<calendar>	{astro="planet=sun, type=set, property=end"}
 
 /* Virtual Items */
 Switch	Auto_Away	"Auto Away? [%s]"	(All)
-Switch	Manual_Away	"Manual Away?"	(All)	
-Switch	Heating_Boost	"Heating Boost"	<temperature>	(All)	
-Number	Temp_Sensor_Hall_Min	"Today's minimum [%.1f C]"	<temperature>	(GF_Hall,Hall_Temperature_Chart)	
-Number	Temp_Sensor_Hall_Max	"Today's maximum [%.1f C]"	<temperature>	(GF_Hall,Hall_Temperature_Chart)	
+Switch	Manual_Away	"Manual Away?"	(All)
+Switch	Heating_Boost	"Heating Boost"	<temperature>	(All)
+Number	Temp_Sensor_Hall_Min	"Today's minimum [%.1f C]"	<temperature>	(GF_Hall,Hall_Temperature_Chart)
+Number	Temp_Sensor_Hall_Max	"Today's maximum [%.1f C]"	<temperature>	(GF_Hall,Hall_Temperature_Chart)
 Number	Temp_Sensor_Hall_Chart_Period	"Hall Temp Chart Period"
-Number	Temp_Sensor_Landing_Min	"Today's minimum [%.1f C]"	<temperature>	(FF_Hall,Landing_Temperature_Chart)	
-Number	Temp_Sensor_Landing_Max	"Today's maximum [%.1f C]"	<temperature>	(FF_Hall,Landing_Temperature_Chart)	
+Number	Temp_Sensor_Landing_Min	"Today's minimum [%.1f C]"	<temperature>	(FF_Hall,Landing_Temperature_Chart)
+Number	Temp_Sensor_Landing_Max	"Today's maximum [%.1f C]"	<temperature>	(FF_Hall,Landing_Temperature_Chart)
 Number	Temp_Sensor_Landing_Chart_Period	"Landing Temp Chart Period"
-
-DateTime Temp_Sensor_Landing_LastUpdate	"Landing Temp Updated [%1$ta %1$tR]"	<clock>
-DateTime Temp_Sensor_Hall_LastUpdate	"Hall Temp Updated [%1$ta %1$tR]"	<clock>
-DateTime WallSwitch_Hall_LastUpdate
-DateTime WallSwitch_Lounge_LastUpdate
-DateTime WallSwitch_Kitchen_LastUpdate
-DateTime Temp_Desired_Thermostat_LastUpdate
-DateTime HeatCall_Thermostat_LastUpdate
-DateTime Boiler_Sensor_LastUpdate
-DateTime Humid_Sensor_Hall_LastUpdate
-DateTime Lumin_Sensor_Hall_LastUpdate
-DateTime Motion_Sensor_Hall_LastUpdate
-DateTime Humid_Sensor_Landing_LastUpdate
-DateTime Lumin_Sensor_Landing_LastUpdate
-DateTime Motion_Sensor_Landing_LastUpdate
-DateTime Contact_FrontDoor_LastUpdate
-DateTime Contact_BackDoor_LastUpdate
-DateTime Temp_Sensor_Thermostat_LastUpdate
-DateTime Auto_Away_LastUpdate
-DateTime Battery_Sensor_Hall_LastUpdate
-DateTime Battery_FrontDoor_LastUpdate
-DateTime Battery_BackDoor_LastUpdate
-DateTime Battery_Sensor_Thermostat_LastUpdate
-DateTime Boiler_Thermo_LastUpdate
+DateTime	Temp_Sensor_Landing_LastUpdate	"Landing Temp Updated [%1$ta %1$tR]"	<clock>
+DateTime	Temp_Sensor_Hall_LastUpdate	"Hall Temp Updated [%1$ta %1$tR]"	<clock>
+DateTime	WallSwitch_Hall_LastUpdate
+DateTime	WallSwitch_Lounge_LastUpdate
+DateTime	WallSwitch_Kitchen_LastUpdate
+DateTime	Temp_Desired_Thermostat_LastUpdate
+DateTime	HeatCall_Thermostat_LastUpdate
+DateTime	Boiler_Sensor_LastUpdate
+DateTime	Humid_Sensor_Hall_LastUpdate
+DateTime	Lumin_Sensor_Hall_LastUpdate
+DateTime	Motion_Sensor_Hall_LastUpdate
+DateTime	Humid_Sensor_Landing_LastUpdate
+DateTime	Lumin_Sensor_Landing_LastUpdate
+DateTime	Motion_Sensor_Landing_LastUpdate
+DateTime	Contact_FrontDoor_LastUpdate
+DateTime	Contact_BackDoor_LastUpdate
+DateTime	Temp_Sensor_Thermostat_LastUpdate
+DateTime	Auto_Away_LastUpdate
+DateTime	Battery_Sensor_Hall_LastUpdate
+DateTime	Battery_FrontDoor_LastUpdate
+DateTime	Battery_BackDoor_LastUpdate
+DateTime	Battery_Sensor_Thermostat_LastUpdate
+DateTime	Boiler_Thermo_LastUpdate

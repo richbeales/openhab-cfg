@@ -53,6 +53,8 @@ sitemap default label="Main Menu"
 	}
 	Frame label="Network Time" {
 		Text item=Date
+		Text item=Sunrise_Time
+		Text item=Sunset_Time
 	}
     Frame label="Switches" {
 		Switch item=WallSwitch_Hall labelcolor=[WallSwitch_Hall_LastUpdate=="Uninitialized"="lightgray",WallSwitch_Hall_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] 
@@ -60,6 +62,9 @@ sitemap default label="Main Menu"
 		Switch item=WallSwitch_Kitchen labelcolor=[WallSwitch_Kitchen_LastUpdate=="Uninitialized"="lightgray",WallSwitch_Kitchen_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] 
         Switch item=MainPC_Wake 
         Switch item=Manual_Away
+        Switch item=Light_AllGroundFloor
+        Switch item=Light_HallBrightness mappings=[DECREASE='-', INCREASE='+']
+		Selection item=Light_scene mappings=[0="white", 1="red", 2="yellow", 3="green", 4="dark green", 5="cyan", 6="blue", 7="magenta"]
 
         Setpoint item=Temp_Desired_Thermostat labelcolor=[Temp_Desired_Thermostat_LastUpdate=="Uninitialized"="lightgray",Temp_Desired_Thermostat_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] 
         Switch item=Heating_Boost 
@@ -84,6 +89,7 @@ sitemap default label="Main Menu"
 	Frame label="Statistics" {
 		Text item=Auto_Away labelcolor=[Auto_Away_LastUpdate=="Uninitialized"="lightgray",Auto_Away_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] 
         Text item=MainPC_Alive 
+        Text item=RichPhone_Alive 
         Text item=Television_Alive 
 		
 		Text item=Battery_Sensor_Hall labelcolor=[Battery_Sensor_Hall_LastUpdate=="Uninitialized"="lightgray",Battery_Sensor_Hall_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] 

@@ -2,14 +2,14 @@
 
 	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder>
-			<pattern>%d{HH:mm:ss.SSS} %-5level %logger{30}[:%line] - %msg%n%ex{10}</pattern>
+			<pattern>%d{HH:mm:ss.SSS} [%-5level] [%-30.30logger{36}:%-5line] - %msg%n</pattern>
 		</encoder>
 	</appender>
 
 	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
 		<file>${openhab.logdir:-logs}/openhab.log</file>
 		<encoder>
-			<pattern>%d{HH:mm:ss.SSS} %-5level %logger{30}[:%line]- %msg%n%ex</pattern>
+			<pattern>%d{HH:mm:ss.SSS} [%-5level] [%-30.30logger{36}:%-5line] - %msg%n</pattern>
 		</encoder>
 	</appender>
 
@@ -20,7 +20,7 @@
 			<!-- weekly rollover and archiving -->
 			<fileNamePattern>events-%d{yyyy-ww}.log.zip</fileNamePattern>
 
-			<!-- keep 30 days' worth of history -->
+			<!-- maximum number of archive files to keep -->
 			<maxHistory>30</maxHistory>
 		</rollingPolicy>
 		<encoder>
@@ -28,23 +28,6 @@
 		</encoder>
 	</appender>
 
-    <appender name="ZWAVEFILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${openhab.logdir:-logs}/zwave.log</file>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-        <!-- weekly rollover and archiving -->
-        <fileNamePattern>${openhab.logdir:-logs}/zwave-%d{yyyy-ww}.log.zip</fileNamePattern>
-        <!-- keep 30 days' worth of history -->
-        <maxHistory>30</maxHistory>
-        </rollingPolicy>
-        <encoder>
-        <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger{30}[:%line]- %msg%n%ex{5}</pattern>
-        </encoder>
-    </appender>
-
-    <logger name="org.openhab.binding.zwave" level="DEBUG" additivity="false">
-        <appender-ref ref="ZWAVEFILE" />
-    </logger>
-    
 	<logger name="runtime.busevents" level="INFO" additivity="false">
 		<appender-ref ref="EVENTFILE" />
 		<appender-ref ref="STDOUT" />
@@ -66,7 +49,6 @@
 
 	<logger name="OSGi" level="WARN" />
 	<logger name="org.eclipse.jetty" level="WARN" />
-	<logger name="org.drools.SystemEventListener" level="INFO" />
 
 	<root level="INFO">
 		<appender-ref ref="FILE" />

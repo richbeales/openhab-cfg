@@ -124,6 +124,7 @@ when
 then
         previousTemp = Temp_Desired_Thermostat.state
         logInfo("heating.rules", "heating boost triggered - was set to " + previousTemp)
+        sendCommand(Boiler_Sensor, ON)
         sendCommand(Temp_Desired_Thermostat, 21)
 end
 
