@@ -1,62 +1,71 @@
 import org.openhab.core.library.types.*
 
+var boolean lightsAreOn = false
+var Timer timer = null
+
 rule "Light Scenes"
 when
 Item Light_scene received command
 then
-if (receivedCommand==0) {
+if (receivedCommand==0) { // white
     sendCommand(Light_scene_ColorSelect, new HSBType(new DecimalType(0),new PercentType(0),new PercentType(100)))
 }
-if (receivedCommand==1) {
+if (receivedCommand==1) { // red
     sendCommand(Light_scene_ColorSelect, new HSBType(new DecimalType(0),new PercentType(100),new PercentType(100)))
 }
-if (receivedCommand==2) {
+if (receivedCommand==2) { // yellow
     sendCommand(Light_scene_ColorSelect, new HSBType(new DecimalType(60),new PercentType(100),new PercentType(100)))
 }
-if (receivedCommand==3) {
+if (receivedCommand==3) { // green
     sendCommand(Light_scene_ColorSelect, new HSBType(new DecimalType(120),new PercentType(100),new PercentType(100)))
 }
-if (receivedCommand==4) {
+if (receivedCommand==4) { // dark green
     sendCommand(Light_scene_ColorSelect, new HSBType(new DecimalType(120),new PercentType(100),new PercentType(50)))
 }
-if (receivedCommand==5) {
+if (receivedCommand==5) { // cyan
     sendCommand(Light_scene_ColorSelect, new HSBType(new DecimalType(180),new PercentType(100),new PercentType(100)))
 }
-if (receivedCommand==6) {
+if (receivedCommand==6) { // blue
     sendCommand(Light_scene_ColorSelect, new HSBType(new DecimalType(240),new PercentType(100),new PercentType(100)))
 }
-if (receivedCommand==7) {
+if (receivedCommand==7) { // magenta
     sendCommand(Light_scene_ColorSelect, new HSBType(new DecimalType(300),new PercentType(100),new PercentType(100)))
 }
 end
 
-rule "Lights on at sunset for 2 hours"
+rule "Lights on at sunset for 2 hours when away"
 when
     Item Sunset_Event received update ON
 then
-    sendCommand(Light_AllGroundFloor, ON)
-    timer = createTimer(now.plusSeconds(7200)) [|
-        sendCommand(Light_AllGroundFloor, OFF)
-        ]
+    if (Auto_Away.state == ON) {
+        sendCommand(Light_AllGroundFloor, ON)
+        lightsAreOn = true
+        timer = createTimer(now.plusSeconds(7200)) [|
+            sendCommand(Light_AllGroundFloor, OFF)
+            lightsAreOn = false
+            ]
+    }
 end
 
 rule "Lights on at motion after dark"
 when
-    Item Motion_Sensor_Hall changed from CLOSED to OPEN
+    Item Motion_Sensor_Hall changed from CLOSED to OPEN or
+    Item Contact_BackDoor changed from CLOSED to OPEN or
+    Item Contact_FrontDoor changed from CLOSED to OPEN
 then
     if (now.isAfter((Sunset_Time.state as DateTimeType).calendar.timeInMillis)  || now.isBefore((Sunrise_Time.state as DateTimeType).calendar.timeInMillis)) {
-        sendCommand(Light_scene, 1)
-        timer = createTimer(now.plusSeconds(600)) [|
-            sendCommand(Light_AllGroundFloor, OFF)
-        ]
+        sendCommand(Light_AllGroundFloor, ON)
+        lightsAreOn = true
     }
 end
 
-/*
-rule "Lights off at sunrise"
+rule "Lights off after motion finished"
 when
-    Item Sunrise_Event received update ON
+    Item Motion_Sensor_Hall changed from OPEN to CLOSED
 then
-    sendCommand(Light_AllGroundFloor, OFF)
+        if (lightsAreOn == true) {
+           sendCommand(Light_AllGroundFloor, OFF)
+           lightsAreOn = false
+        }
 end
-*/
+
