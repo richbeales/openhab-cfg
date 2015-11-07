@@ -24,6 +24,7 @@ Group	Landing_Temperature_Chart
 Group	Battery
 Group	Mobile
 Group	Lights
+Group	MyOpenHAB
 
 /* Weather from Yahoo */
 Group	Weather_Chart	(Weather)
@@ -52,20 +53,20 @@ Number	Lumin_Sensor_Landing	"Landing Luminance: [%.0f Lux]"	<sun>	(FF_Hall)	{zwa
 Contact	Motion_Sensor_Landing	"Landing Sensor [MAP(motion.map):%s]"	(FF_Hall)	{zwave="2:command=sensor_binary,respond_to_basic=true"}
 
 /* TKB Home Wall switches */
-Switch	WallSwitch_Hall	"Hallway Wall switch"	(GF_Hall)	{ zwave="3:0" }
-Switch	WallSwitch_Kitchen	"Kitchen Wall switch"	(GF_Kitchen)	{ zwave="35" }
-Switch	WallSwitch_Lounge	"Lounge Wall switch"	(GF_Lounge)	{ zwave="36" }
+Switch	WallSwitch_Hall	"Hallway Wall switch"	(GF_Hall,MyOpenHAB)	{ zwave="3:0" }
+Switch	WallSwitch_Kitchen	"Kitchen Wall switch"	(GF_Kitchen,MyOpenHAB)	{ zwave="35" }
+Switch	WallSwitch_Lounge	"Lounge Wall switch"	(GF_Lounge,MyOpenHAB)	{ zwave="36" }
 
 /* Vision Security Door/Window Sensors on Doors */
-Contact	Contact_BackDoor	"Back Door [MAP(motion.map):%s]"	<frontdoor> (GF_Kitchen)	{zwave="5:command=basic,respond_to_basic=true"}
+Contact	Contact_BackDoor	"Back Door [MAP(motion.map):%s]"	<frontdoor> (GF_Kitchen,MyOpenHAB)	{zwave="5:command=basic,respond_to_basic=true"}
 Number	Battery_BackDoor	"Back Door Battery: [%d %%]"	<battery>	(GF_Kitchen,Battery)	{zwave="5:command=battery"}
-Contact	Contact_FrontDoor	"Front Door [MAP(motion.map):%s]"	<frontdoor> (GF_Hall)	{zwave="6:command=basic,respond_to_basic=true"}
+Contact	Contact_FrontDoor	"Front Door [MAP(motion.map):%s]"	<frontdoor> (GF_Hall,MyOpenHAB)	{zwave="6:command=basic,respond_to_basic=true"}
 Number	Battery_FrontDoor	"Front Door Battery: [%d %%]"	<battery>	(GF_Hall,Battery)	{zwave="6:command=battery"}
 
 /* Horstmann HRT4-ZW Thermostat - set wake up interval to 900 seconds */
 Number	Battery_Sensor_Thermostat	"Thermostat Battery: [%d %%]"	<battery> (GF_Lounge,Battery)	{zwave="31:command=battery"}
-Number	Temp_Desired_Thermostat	"Thermostat Desired Temp: [%.1f C]" <temperature> (GF_Lounge)	{zwave="31:command=thermostat_setpoint, setpoint_type=1"}
-Number	Temp_Sensor_Thermostat	"Thermostat Measured Temp: [%.1f C]" <temperature>	(GF_Lounge)	{zwave="31:command=sensor_multilevel, sensor_type=1"}
+Number	Temp_Desired_Thermostat	"Thermostat Desired Temp: [%.1f C]" <temperature> (GF_Lounge,MyOpenHAB)	{zwave="31:command=thermostat_setpoint, setpoint_type=1"}
+Number	Temp_Sensor_Thermostat	"Thermostat Measured Temp: [%.1f C]" <temperature>	(GF_Lounge,MyOpenHAB)	{zwave="31:command=sensor_multilevel, sensor_type=1"}
 Number	HeatCall_Thermostat	"Thermostat calling for heat [MAP(heat.map):%d]"	<fire>	(GF_Lounge)	{zwave="31:command=switch_binary"}
 
 /* Horstmann ASR-ZW Boiler Switch */
@@ -80,8 +81,13 @@ Switch	Television_Alive	"TV On? [%s]"	<video>	(GF_Lounge)	{exec="<[/bin/sh@@-c@@
 Switch	MainPC_Alive	"Main PC On? [%s]"	<computer>	(FF_Study)	{exec="<[/bin/sh@@-c@@ping -c 1 10.1.0.10 | grep \"packets transmitted\" | sed -e \"s/.*1 received.*/ON/\" -e \"s/.*0 received.*/OFF/\":60000:REGEX((.*))]"}
 Switch	RichPhone_Alive "Richard Phone On? [%s]" <computer> (Mobile) {exec="<[/bin/sh@@-c@@ping -c 1 10.1.0.11 | grep \"packets transmitted\" | sed -e \"s/.*1 received.*/ON/\" -e \"s/.*0 received.*/OFF/\":60000:REGEX((.*))]"}
 
+/* Bluetooth */
+String	UnknownDevices	"Unknown BT devices in range: [%s]"	{bluetooth="?"}
+Number	NoOfPairedDevices	"Paired BT devices in range: [%d]"	{bluetooth="!"}
+
 /* Solaredge monitoring */
-Number	Solar_OutputToday	"Current Solar Gen [%.1f Wh]"	<sun>	(Outdoor_Front)		{http="<[solaredgeenergycache:300000:REGEX((.*))]"}
+Number	Solar_CurrentPower	"Current Solar Power [%.1f W]"	<sun>	(Outdoor_Front,MyOpenHAB)		{http="<[solaredgeenergycache:300000:JSONPATH($..currentPower[0].power)]"}
+Number	Solar_OutputToday	"Today Solar Gen [%.1f Wh]"	<sun>	(Outdoor_Front)		{http="<[solaredgeenergycache:300000:JSONPATH($..lastDayData[0].energy)]"}
 
 /* MiLight bulbs */
 Switch	Light_AllGroundFloor	"All Lights"	<whites>	(GF_Hall,Lights)	{milight="bridge1;6"}
@@ -96,9 +102,9 @@ DateTime	Sunrise_Time	"Sunrise [%1$tH:%1$tM]"	<calendar>	{astro="planet=sun, typ
 DateTime	Sunset_Time	"Sunset [%1$tH:%1$tM]"	<calendar>	{astro="planet=sun, type=set, property=end"}
 
 /* Virtual Items */
-Switch	Auto_Away	"Auto Away? [%s]"	(All)
-Switch	Manual_Away	"Manual Away?"	(All)
-Switch	Heating_Boost	"Heating Boost"	<temperature>	(All)
+Switch	Auto_Away	"Auto Away? [%s]"	(All,MyOpenHAB)
+Switch	Manual_Away	"Manual Away?"	(All,MyOpenHAB)
+Switch	Heating_Boost	"Heating Boost"	<temperature>	(All,MyOpenHAB)
 Number	Temp_Sensor_Hall_Min	"Today's minimum [%.1f C]"	<temperature>	(GF_Hall,Hall_Temperature_Chart)
 Number	Temp_Sensor_Hall_Max	"Today's maximum [%.1f C]"	<temperature>	(GF_Hall,Hall_Temperature_Chart)
 Number	Temp_Sensor_Hall_Chart_Period	"Hall Temp Chart Period"
