@@ -90,10 +90,16 @@ Number	Solar_CurrentPower	"Current Solar Power [%.1f W]"	<sun>	(Outdoor_Front,My
 Number	Solar_OutputToday	"Today Solar Gen [%.1f Wh]"	<sun>	(Outdoor_Front)		{http="<[solaredgeenergycache:300000:JSONPATH($..lastDayData[0].energy)]"}
 
 /* MiLight bulbs */
-Switch	Light_AllGroundFloor	"All Lights"	<whites>	(GF_Hall,Lights)	{milight="bridge1;6"}
-Dimmer	Light_HallBrightness	"Hall Brightness"	<whites>	(GF_Hall,Lights)	{milight="bridge1;6;brightness"}
+Switch	Light_AllGroundFloor	"All Downstairs Lights"	<whites>	(gGF,Lights,MyOpenHAB)	{milight="bridge1;6"}
+Switch	Light_Hallway	"Hallway Light"	<whites>	(GF_Hall,Lights,MyOpenHAB)	{milight="bridge1;7"}
+Switch	Light_LoungeSpot	"Lounge spot light"	<whites>	(GF_Lounge,Lights,MyOpenHAB)	{milight="bridge1;8"}
+Switch	Light_LoungeStrip	"Lounge RGB strip"	<whites>	(GF_Lounge,Lights,MyOpenHAB)	{milight="bridge1;9"}
+Dimmer	Light_HallBrightness	"Hall Brightness"	<whites>	(GF_Hall,Lights)	{milight="bridge1;7;brightness"}
 Number	Light_scene "Scenes"	<colorwheel>	(GF_Hall,Lights)
-Color	Light_scene_ColorSelect	"Scene Selector"	<colorwheel>	(GF_Hall,Lights)	{milight="bridge1;6;rgb"}
+Color	Light_scene_ColorSelect	"Scene Selector"	<colorwheel>	(GF_Hall,Lights)	{milight="bridge1;7;rgb"}
+
+/* Orvibo S20 switches */
+Switch  WallSwitch_Lounge2  "Lounge Wall switch 2"  (GF_Lounge) {exec="<[/usr/bin/python3 /home/rich/python-orvibo/cmd.py --server 10.1.0.14 --status:60000:REGEX((.*?))] >[ON:/usr/bin/python3 /home/rich/python-orvibo/cmd.py --server 10.1.0.14 --switch ON] >[OFF:/usr/bin/python3 /home/rich/python-orvibo/cmd.py --server 10.1.0.14 --switch OFF]"}
 
 /* Astro */
 Switch	Sunrise_Event	{astro="planet=sun, type=rise, property=start"}

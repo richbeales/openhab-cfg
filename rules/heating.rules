@@ -2,7 +2,7 @@ import org.openhab.core.library.types.*
 import org.openhab.core.persistence.*
 import org.openhab.model.script.actions.*
  
-var Number defaultTemp = 17
+var Number defaultTemp = 19
 var Number minTemp = 9
 var Number nightTemp = 14
 var Number previousTemp

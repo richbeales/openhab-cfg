@@ -38,10 +38,10 @@ when
     Item Sunset_Event received update ON
 then
     if (Auto_Away.state == ON) {
-        sendCommand(Light_AllGroundFloor, ON)
+        sendCommand(Light_Hallway, ON)
         lightsAreOn = true
         timer = createTimer(now.plusSeconds(7200)) [|
-            sendCommand(Light_AllGroundFloor, OFF)
+            sendCommand(Light_Hallway, OFF)
             lightsAreOn = false
             ]
     }
@@ -54,7 +54,7 @@ when
     Item Contact_FrontDoor changed from CLOSED to OPEN
 then
     if (now.isAfter((Sunset_Time.state as DateTimeType).calendar.timeInMillis)  || now.isBefore((Sunrise_Time.state as DateTimeType).calendar.timeInMillis)) {
-        sendCommand(Light_AllGroundFloor, ON)
+        sendCommand(Light_Hallway, ON)
         lightsAreOn = true
     }
 end
@@ -64,7 +64,7 @@ when
     Item Motion_Sensor_Hall changed from OPEN to CLOSED
 then
         if (lightsAreOn == true) {
-           sendCommand(Light_AllGroundFloor, OFF)
+           sendCommand(Light_Hallway, OFF)
            lightsAreOn = false
         }
 end

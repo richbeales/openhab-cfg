@@ -37,6 +37,21 @@
 		<appender-ref ref="STDOUT" />
 	</logger>
 
+    <!-- exec Logging -->	
+	<appender name="EXECFILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	    <file>logs/exec.log</file>
+	    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+	    	<fileNamePattern>logs/exec-%d{yyyy-ww}.log.zip</fileNamePattern>
+	       	<maxHistory>7</maxHistory>
+	        </rollingPolicy>
+	        <encoder>
+	        	<pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{30}[:%line]- %msg%n%ex{5}</pattern>
+	        </encoder>
+	</appender>
+    <logger name="org.openhab.binding.exec" level="INFO" additivity="false">
+    <appender-ref ref="EXECFILE" />
+    </logger>
+
 	<logger name="org.openhab" level="INFO"/>
 
 	<!-- this class gives an irrelevant warning at startup -->
@@ -55,6 +70,7 @@
 	<root level="WARN">
 		<appender-ref ref="FILE" />
 		<appender-ref ref="STDOUT" />
+		<appender-ref ref="EXECFILE" />
 	</root>
 
 </configuration>
