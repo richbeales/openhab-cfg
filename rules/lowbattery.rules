@@ -1,7 +1,7 @@
 import org.openhab.core.library.types.DecimalType
 
 val String mailTo = "rich@richbeales.net"
-val int lowBatteryThreshold = 40
+val int lowBatteryThreshold = 33
 
 rule "Battery Monitor"
 when Time cron "0 0 19 * * ?"

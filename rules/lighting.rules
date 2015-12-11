@@ -1,6 +1,8 @@
 import org.openhab.core.library.types.*
+import org.openhab.model.script.actions.*
 
-var boolean lightsAreOn = false
+var boolean hallLightIsOn = false
+var boolean landingLightIsOn = false
 var Timer timer = null
 
 rule "Light Scenes"
@@ -39,10 +41,10 @@ when
 then
     if (Auto_Away.state == ON) {
         sendCommand(Light_Hallway, ON)
-        lightsAreOn = true
+        hallLightIsOn = true
         timer = createTimer(now.plusSeconds(7200)) [|
             sendCommand(Light_Hallway, OFF)
-            lightsAreOn = false
+            hallLightIsOn = false
             ]
     }
 end
@@ -53,9 +55,15 @@ when
     Item Contact_BackDoor changed from CLOSED to OPEN or
     Item Contact_FrontDoor changed from CLOSED to OPEN
 then
-    if (now.isAfter((Sunset_Time.state as DateTimeType).calendar.timeInMillis)  || now.isBefore((Sunrise_Time.state as DateTimeType).calendar.timeInMillis)) {
+    if (Lumin_Sensor_Hall.state < 50) {
+        var int i = 0
+        while (i<10) { 
+            sendCommand(Light_HallBrightness, INCREASE)
+            Thread::sleep(350)
+            i = i + 1
+        }
         sendCommand(Light_Hallway, ON)
-        lightsAreOn = true
+        hallLightIsOn = true
     }
 end
 
@@ -63,9 +71,56 @@ rule "Lights off after motion finished"
 when
     Item Motion_Sensor_Hall changed from OPEN to CLOSED
 then
-        if (lightsAreOn == true) {
-           sendCommand(Light_Hallway, OFF)
-           lightsAreOn = false
+    if (hallLightIsOn == true) {
+        var int j = 0
+        while (j<10) {
+            sendCommand(Light_HallBrightness, DECREASE)
+            Thread::sleep(900)
+            j = j + 1
         }
+        sendCommand(Light_Hallway, OFF)
+        hallLightIsOn = false
+    }
+end
+
+rule "Upstairs Lights on at motion"
+when
+    Item Motion_Sensor_Landing changed from CLOSED to OPEN
+then
+    if (Lumin_Sensor_Landing.state < 50) {
+        if (Light_LandingBrightness.state > 0) {
+            sendCommand(Light_LandingBrightness, Light_LandingBrightness.state as DecimalType)
+        }
+        else {
+            sendCommand(Light_LandingBrightness, 1)
+        }
+        landingLightIsOn = true
+    }
+    postUpdate(Motion_Sensor_Landing_LastUpdate, new DateTimeType())
+end
+
+rule "Upstairs Lights off after motion"
+when
+    Item Motion_Sensor_Landing changed from OPEN to CLOSED
+then
+    if (landingLightIsOn == true) {
+        sendCommand(Light_Landing, OFF)
+        landingLightIsOn = false
+    }
+    postUpdate(Motion_Sensor_Landing_LastUpdate, new DateTimeType())
+end
+
+rule "Test dimming"
+when
+    Item Test_Switch changed
+then
+    sendCommand(Test_Amount, 1)
+end
+
+rule "Test dimming 2"
+when
+    Item Test_Amount changed
+then
+    sendCommand(Light_LandingBrightness, Test_Amount.state as DecimalType)
 end
 

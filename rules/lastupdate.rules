@@ -2,49 +2,6 @@ import org.openhab.core.library.types.*
 import org.openhab.core.persistence.*
 import org.openhab.model.script.actions.*
 
-rule "Start up"
-when
-    System started
-then
-    postUpdate(Auto_Away, OFF)
-    postUpdate(Manual_Away, OFF)
-end
-
-rule "Update Hall max and min temperatures"
-when
-	Item Temp_Sensor_Hall changed or
-	System started
-then	
-	postUpdate(Temp_Sensor_Hall_Max, Temp_Sensor_Hall.maximumSince(now.toDateMidnight).state)
-	postUpdate(Temp_Sensor_Hall_Min, Temp_Sensor_Hall.minimumSince(now.toDateMidnight).state)
-end
-
-
-rule "Update Landing max and min temperatures"
-when
-	Item Temp_Sensor_Landing changed or
-	System started
-then	
-	postUpdate(Temp_Sensor_Landing_Max, Temp_Sensor_Landing.maximumSince(now.toDateMidnight).state)
-	postUpdate(Temp_Sensor_Landing_Min, Temp_Sensor_Landing.minimumSince(now.toDateMidnight).state)
-end
-
-rule "Update Weather max and min temperatures"
-when
-	Item Weather_Temperature changed or
-	System started
-then	
-	postUpdate(Weather_Temp_Max, Weather_Temperature.maximumSince(now.toDateMidnight).state)
-	postUpdate(Weather_Temp_Min, Weather_Temperature.minimumSince(now.toDateMidnight).state)
-end
-
-rule "Switch off WOL"
-when
-    Item MainPC_Wake changed to ON
-then
-    postUpdate(MainPC_Wake, OFF)
-end
-
 rule "Record Hall last temp update time"
 when
   Item Temp_Sensor_Hall received update
@@ -135,14 +92,14 @@ when
 then
   postUpdate(Lumin_Sensor_Landing_LastUpdate, new DateTimeType())
 end
-
+/* Moved to lighting.rules 20151206 to try to speed up response of landing light
 rule "Record Motion_Sensor_Landing_LastUpdate"
 when
   Item Motion_Sensor_Landing received update
 then
   postUpdate(Motion_Sensor_Landing_LastUpdate, new DateTimeType())
 end
-
+*/
 rule "Record Contact_FrontDoor_LastUpdate"
 when
   Item Contact_FrontDoor received update

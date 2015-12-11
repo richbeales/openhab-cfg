@@ -52,6 +52,21 @@
     <appender-ref ref="EXECFILE" />
     </logger>
 
+    <!-- exec Logging -->	
+	<appender name="ZWAVEFILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	    <file>logs/zwave.log</file>
+	    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+	    	<fileNamePattern>logs/zwave-%d{yyyy-ww}.log.zip</fileNamePattern>
+	       	<maxHistory>7</maxHistory>
+	        </rollingPolicy>
+	        <encoder>
+	        	<pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{30}[:%line]- %msg%n%ex{5}</pattern>
+	        </encoder>
+	</appender>
+    <logger name="org.openhab.binding.zwave" level="WARN" additivity="false">
+    <appender-ref ref="ZWAVEFILE" />
+    </logger>
+    
 	<logger name="org.openhab" level="INFO"/>
 
 	<!-- this class gives an irrelevant warning at startup -->

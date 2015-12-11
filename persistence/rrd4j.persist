@@ -15,30 +15,14 @@ Items {
 	Weather_Chart* : strategy = everyMinute, restoreOnStartup
 	Hall_Temperature_Chart* : strategy = everyChange, everyMinute, restoreOnStartup
 	Landing_Temperature_Chart* : strategy = everyChange, everyMinute, restoreOnStartup
-	WallSwitch_Hall
-	WallSwitch_Lounge
-	WallSwitch_Kitchen
-	Auto_Away
-	Manual_Away
-	Temp_Sensor_Hall
-	Humid_Sensor_Hall
-	Lumin_Sensor_Hall
-	Motion_Sensor_Hall
-	Battery_Sensor_Hall
-	Temp_Sensor_Landing
-	Humid_Sensor_Landing
-	Lumin_Sensor_Landing
-	Motion_Sensor_Landing
-    Heating_Target_Temp
-    Battery_Sensor_Thermostat
-    Temp_Sensor_Thermostat
-    Temp_Desired_Thermostat
-    HeatCall_Thermostat
-    Heating_Boost
-    Contact_FrontDoor
-    Battery_FrontDoor
-    Contact_BackDoor
-    Battery_BackDoor
-    Boiler_Sensor
-    Boiler_Thermo
+    Battery*
+    Mobile*
+    Lights*
+    Sensors*
+    Stats*
+    Switches*
+    Virtual*
+    Network*
+
+    Temp_Sensor_Thermostat : strategy = everyChange, everyMinute, restoreOnStartup
 }

@@ -4,6 +4,9 @@ sitemap default label="Main Menu"
 		Group item=gFF label="First Floor" icon="firstfloor"
 		Group item=gGF label="Ground Floor" icon="groundfloor"
 		Group item=Outdoor icon="garden" 
+		Group item=Lights label="All Lights" icon="switch-on" 
+        Switch item=Test_Switch
+        Setpoint item=Test_Amount
 	}
 	Frame label="Weather" {
 		Text item=Weather_Temperature labelcolor=[Weather_LastUpdate=="Uninitialized"="lightgray",Weather_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] {
@@ -65,9 +68,12 @@ sitemap default label="Main Menu"
         Switch item=Manual_Away
         Switch item=Light_AllGroundFloor
         Switch item=Light_Hallway
+        Switch item=Light_HallBrightness mappings=[DECREASE='-', INCREASE='+']
+        Switch item=Light_LoungeCeiling
         Switch item=Light_LoungeSpot
         Switch item=Light_LoungeStrip
-        Switch item=Light_HallBrightness mappings=[DECREASE='-', INCREASE='+']
+        Switch item=Light_Landing
+        Switch item=Light_LandingBrightness mappings=[DECREASE='-', INCREASE='+']
 		Selection item=Light_scene mappings=[0="white", 1="red", 2="yellow", 3="green", 4="dark green", 5="cyan", 6="blue", 7="magenta"]
 
         Setpoint item=Temp_Desired_Thermostat labelcolor=[Temp_Desired_Thermostat_LastUpdate=="Uninitialized"="lightgray",Temp_Desired_Thermostat_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] 
@@ -105,6 +111,7 @@ sitemap default label="Main Menu"
         Text item=Battery_Sensor_Thermostat labelcolor=[Battery_Sensor_Thermostat_LastUpdate=="Uninitialized"="lightgray",Battery_Sensor_Thermostat_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] 
         Text item=Boiler_Thermo labelcolor=[Boiler_Thermo_LastUpdate=="Uninitialized"="lightgray",Boiler_Thermo_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] 
         Text item=HeatCall_Thermostat labelcolor=[HeatCall_Thermostat_LastUpdate=="Uninitialized"="lightgray",HeatCall_Thermostat_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] 
+
 
 	}
 }

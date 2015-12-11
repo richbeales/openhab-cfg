@@ -1,0 +1,15 @@
+sitemap default label="Main Menu"
+{
+	Frame {
+		Group item=gFF label="First Floor" icon="firstfloor"
+		Group item=gGF label="Ground Floor" icon="groundfloor"
+		Group item=Outdoor icon="garden" 
+		Group item=Lights label="All Lights" icon="switch-on" 
+        Group item=Switches
+        Group item=Sensors
+        Group item=Stats
+        Group item=Network
+        Group item=Mobile
+        Group item=Virtual
+	}
+}
