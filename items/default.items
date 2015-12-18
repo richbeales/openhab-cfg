@@ -34,7 +34,7 @@ Group   Switches (All)
 Group   Virtual (All)
 Group   Network (All)
 
-/* Weather from Yahoo */
+/* Weather from Wunderground http */
 Group	Weather_Chart	(Weather)
 Number	Weather_Temperature	"Outside Temperature [%.1f °C]"	<temperature>	(Weather_Chart)	{http="<[wuweathercurrentcache:300000:XSLT(wu_weather_current_temp.xsl)]"}
 Number	Weather_Forecast_Temp	"Outside Forecast Temperature [%.1f °C]"	<temperature>	(Weather_Chart)	{http="<[wuweatherforecastcache:1800000:XSLT(wu_weather_forecast_temphigh.xsl)]"}
